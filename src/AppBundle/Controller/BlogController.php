@@ -46,6 +46,17 @@ class BlogController extends Controller
     }
 
     /**
+     * @Route("/state/{state}", name="blog_by_state")
+     */
+    public function byStateAction($state)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Post')->findLatest(Post::NUM_ITEMS, $state);
+
+        return $this->render('blog/index.html.twig', array('posts' => $posts));
+    }
+
+    /**
      * @Route("/posts/{slug}", name="blog_post")
      *
      * NOTE: The $post controller argument is automatically injected by Symfony
