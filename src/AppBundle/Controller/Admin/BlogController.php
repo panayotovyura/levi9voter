@@ -86,7 +86,7 @@ class BlogController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug($this->get('slugger')->slugify($post->getTitle()));
 
-            if ($form->get('publish')->isClicked()) {
+            if ($request->request->has('publish')) {
                 $post->setState(Post::STATUS_VOTING);
             }
 
