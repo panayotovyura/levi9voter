@@ -84,6 +84,10 @@ class BlogController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug($this->get('slugger')->slugify($post->getTitle()));
 
+            if ($form->get('publish')->isClicked()) {
+                $post->setState(Post::STATUS_VOTING);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush();
@@ -132,6 +136,10 @@ class BlogController extends Controller
             throw $this->createAccessDeniedException('Posts can only be edited by their authors.');
         }
 
+        if ($post->getState() !== Post::STATUS_DRAFT) {
+            return $this->redirectToRoute('admin_post_index');
+        }
+
         $em = $this->getDoctrine()->getManager();
 
         $editForm = $this->createForm(new PostType(), $post);
@@ -141,6 +149,11 @@ class BlogController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $post->setSlug($this->get('slugger')->slugify($post->getTitle()));
+
+            if ($request->request->has('publish')) {
+                $post->setState(Post::STATUS_VOTING);
+            }
+
             $em->flush();
 
             return $this->redirectToRoute('admin_post_edit', array('id' => $post->getId()));

@@ -21,6 +21,9 @@
         </a>
     </div>
     {% endif %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and post.author(app.user) and post.state == constant('AppBundle\\Entity\\Post::STATUS_VOTING') %}
+        {{ render(controller('AppBundle:Blog:stateForm', { 'id': post.id })) }}
+    {% endif %}
     <div id="post-add-comment" class="well">
         {# The 'IS_AUTHENTICATED_FULLY' role ensures that the user has entered
         his/her credentials (login + password) during this session. If he/she
@@ -61,9 +64,6 @@
 
 {% block sidebar %}
 
-    {% include "blog/categories_list.html.twig" %}
-    {% include "blog/states_list.html.twig" %}
-
     {% if app.user and post.isAuthor(app.user) and post.state == constant('AppBundle\\Entity\\Post::STATUS_DRAFT') %}
         <div class="section">
             <a class="btn btn-lg btn-block btn-success" href="{{ path('admin_post_edit', { id: post.id }) }}">
@@ -71,6 +71,9 @@
             </a>
         </div>
     {% endif %}
+
+    {% include "blog/categories_list.html.twig" %}
+    {% include "blog/states_list.html.twig" %}
 
     {# the parent() function includes the contents defined by the parent template
       ('base.html.twig') for this block ('sidebar'). This is a very convenient way
