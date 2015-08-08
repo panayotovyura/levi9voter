@@ -21,7 +21,7 @@
                 <a class="btn btn-success" href="{{ path('security_login_form') }}">
                     <i class="fa fa-sign-in"></i> {{ 'action.sign_in'|trans }}
                 </a>
-                {{ 'post.to_publish_a_comment'|trans }}
+                {{ 'post.to_publish_a_comment'|trans }} or vote
             </p>
         {% endif %}
     </div>
@@ -59,5 +59,4 @@
       to share common contents in different templates #}
     {{ parent() }}
 
-    {{ show_source_code(_self) }}
 {% endblock %}
