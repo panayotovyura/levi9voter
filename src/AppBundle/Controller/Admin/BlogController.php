@@ -28,7 +28,6 @@ use AppBundle\Entity\Post;
  * See http://knpbundles.com/keyword/admin
  *
  * @Route("/admin/post")
- * @Security("has_role('ROLE_ADMIN')")
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -53,7 +52,9 @@ class BlogController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Post')->findAll();
+        $posts = $em->getRepository('AppBundle:Post')->findBy([
+            'authorEmail' => $this->getUser()->getEmail(),
+        ]);
 
         return $this->render('admin/blog/index.html.twig', array('posts' => $posts));
     }
