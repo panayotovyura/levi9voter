@@ -143,16 +143,19 @@ MARKDOWN;
     private function getPhrases()
     {
         return array(
-            'Будет воллейбол и футбол, поэтому берите купальники и плавки ;)',
-            'Ближе к дате напишу все более подробно и отвечу на все ваши вопросы.',
-            'Небольшое обновление по работе системы timeoff-ua.levi9.com',
-            'Очередной обучающий ликбез, в этот раз - по PHP.',
-            'Иван Трофименко, Senior PHP Developer at Levi9: Diving into Dependency Injection',
-            'ндрей Завадский, Department Manager, PHP Architect at Levi9: Microservices',
-            'Ночевка в палатке, комары и прочие радости отсутствия цивилизации!',
-            'Будем есть мясо (но не я), пить шампанское',
-            'Риквест на новые джойстики Sony PS3',
-            'Собираемся на футбол командой Levi9'
+            'Senior PHP Developer at Levi9: Diving into Dependency Injection',
+            'Department Manager, PHP Architect at Levi9: Microservices',
+            'Today is SystemAdmin day, We celebrate it with the best admins ever',
+            'Knowledge sharing session is on at @levi9_rs.',
+            'Jasmina Petrov is talking about the automation of mobile apps testing',
+            'PHP developers, join to Levi9 team, send your CV on jobs-serbia@levi9.com ',
+            'Arch9 Event by Levi9 22 april',
+            'Levi9 Ukraine is the employer for specialists at all career levels',
+            'Working at Levi9 is much more than a job',
+            'You will be a part of a dynamic, qualified and motivated European team with a unique corporate spirit',
+            'Want to know more about Levi9? You are welcome to contact our HR Team',
+            'Levi9 IT services works with worldwide clients well-known clients and projects as well as start-ups',
+            'Levi9 Kiev office is looking for Junior PHP Developer'
         );
     }
 
