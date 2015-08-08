@@ -22,6 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
+use AppBundle\Entity\Vote;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -114,6 +115,23 @@ class BlogController extends Controller
             'post' => $post,
             'form' => $form->createView(),
         ));
+    }
+
+    /**
+     * @Route("/posts/vote/{id}/{agree}", name="blog_post_vote")
+     */
+    public function voteAction(Post $post, $agree)
+    {
+        $voteEntity = new Vote();
+        $voteEntity->setAuthorEmail($this->getUser()->getEmail())
+            ->setPost($post)
+            ->setVote($agree);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($voteEntity);
+        $em->flush();
+
+        return $this->redirectToRoute('blog_post', array('slug' => $post->getSlug()));
     }
 
     /**

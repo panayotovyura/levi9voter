@@ -59,6 +59,7 @@ class Vote
     public function setVote($vote)
     {
         $this->vote = $vote;
+        return $this;
     }
 
     /**
@@ -78,6 +79,7 @@ class Vote
     public function setPost(Post $post = null)
     {
         $this->post = $post;
+        return $this;
     }
 
     public function getAuthorEmail()
@@ -87,5 +89,6 @@ class Vote
     public function setAuthorEmail($authorEmail)
     {
         $this->authorEmail = $authorEmail;
+        return $this;
     }
 }

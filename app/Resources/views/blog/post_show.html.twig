@@ -7,6 +7,16 @@
 
     {{ post.content|md2html }}
 
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div id="post-add-comment" class="well">
+        <a class="btn btn-success" href="{{ path('blog_post_vote', { id: post.id, agree: 1 }) }}">
+            <i class="fa fa-plus"></i> {{ 'action.agree'|trans }}
+        </a>
+        <a class="btn btn-warning" href="{{ path('blog_post_vote', { id: post.id, agree: 0 }) }}">
+            <i class="fa fa-minus"></i> {{ 'action.not-agree'|trans }}
+        </a>
+    </div>
+    {% endif %}
     <div id="post-add-comment" class="well">
         {# The 'IS_AUTHENTICATED_FULLY' role ensures that the user has entered
         his/her credentials (login + password) during this session. If he/she
