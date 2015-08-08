@@ -70,7 +70,14 @@ class BlogController extends Controller
      */
     public function byCategoryAction(Category $category)
     {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Post')->findLatest(Post::NUM_ITEMS, null, $category);
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
 
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
     }
 
     /**

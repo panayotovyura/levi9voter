@@ -12,7 +12,7 @@
                 </li>
                 {% for category in categories %}
                     <li>
-                        <a href="#">
+                        <a href="{{ path('blog_by_category', {'id': category.id}) }}">
                             {{ category.name }}
                         </a>
                     </li>
