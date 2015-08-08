@@ -14,6 +14,7 @@ namespace AppBundle\DataFixtures\ORM;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Vote;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -88,6 +89,13 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
 
                 $manager->persist($comment);
                 $post->addComment($comment);
+            }
+
+            if (rand(0, 1)) {
+                $vote = new Vote();
+                $vote->setAuthorEmail(rand(0, 1) ? 'anna_admin@symfony.com' : 'john_user@symfony.com');
+                $vote->setPost($post);
+                $vote->setVote(rand(0 ,1));
             }
 
             $manager->persist($post);
