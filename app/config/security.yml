@@ -37,6 +37,7 @@ security:
                 # Secure the login form against CSRF
                 # Reference: http://symfony.com/doc/current/cookbook/security/csrf_in_login_form.html
                 csrf_provider: security.csrf.token_manager
+                success_handler: login_success_handler
 
             logout:
                 # The route name the user can go to in order to logout

@@ -121,6 +121,7 @@ class UserProvider extends adUserProvider
             unset($sfRolesTemp);
 
             $adUser->setDisplayName($user->displayName);
+            $adUser->setUuid($adLdap->utilities()->decodeGuid($user->objectguid));
             $adUser->setEmail($user->mail);
             $adUser->setRoles(['ROLE_USER']);
             $adUser->setPassword($token->getCredentials());

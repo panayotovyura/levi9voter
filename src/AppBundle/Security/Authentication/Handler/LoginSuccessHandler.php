@@ -20,7 +20,6 @@ class LoginSuccessHandler extends DefaultAuthenticationSuccessHandler
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        die('success');
         $this->userService->importAuthenticatedUser($token);
 
         return $this->httpUtils->createRedirectResponse($request, $this->determineTargetUrl($request));

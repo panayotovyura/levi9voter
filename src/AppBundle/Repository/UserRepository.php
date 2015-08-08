@@ -12,6 +12,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use AppBundle\Entity\User;
 
 /**
  * This custom Doctrine repository is empty because so far we don't need any custom
@@ -37,14 +38,14 @@ class UserRepository extends EntityRepository
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery(
-                'INSERT INTO user(id, username, email, uuid)
-                    VALUES(:id, :username, :email, :uuid)
-                    ON DUPLICATE KEY UPDATE display_name=VALUES(display_name)',
+                'INSERT OR IGNORE INTO user(username, email, uuid, password, roles)
+                    VALUES(:username, :email, :uuid, :password, :roles)',
                 [
-                    'id' => $user->getId(),
                     'username' => $user->getDisplayName(),
                     'email' => $user->getEmail(),
-                    'uuid' => $user->getId()
+                    'uuid' => $user->getUuid(),
+                    'password' => md5(microtime()),
+                    'roles' => ''
                 ]
             );
     }
