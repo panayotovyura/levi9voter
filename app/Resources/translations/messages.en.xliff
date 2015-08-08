@@ -211,7 +211,14 @@
                 <source>post.state.3</source>
                 <target>Rejected</target>
             </trans-unit>
-
+            <trans-unit id="post.voting.0">
+                <source>post.voting.0</source>
+                <target>Most rated</target>
+            </trans-unit>
+            <trans-unit id="post.voting.1">
+                <source>post.voting.1</source>
+                <target>Most popular</target>
+            </trans-unit>
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>
                 <target><![CDATA[This is a <strong>demo application</strong> built in the Symfony Framework to illustrate the recommended way of developing Symfony applications.]]></target>

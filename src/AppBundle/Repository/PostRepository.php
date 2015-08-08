@@ -13,6 +13,7 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\Post;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * This custom Doctrine repository contains some methods which are useful when
@@ -42,5 +43,56 @@ class PostRepository extends EntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function findByVoting($limit = Post::NUM_ITEMS, $type)
+    {
+        if ($type == Post::VOTING_MOST_RATED) {
+            $postsCollection =  $this->findMostRated($limit);
+        } else {
+            $postsCollection = $this->findMostPopular($limit);
+        }
+
+        $formattedOutput = [];
+
+        foreach($postsCollection as $postItem) {
+            $post = reset($postItem);
+            $formattedOutput[] = $post;
+        }
+
+        return $formattedOutput;
+    }
+
+
+    protected function findMostRated($limit)
+    {
+        $builder = $this
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->addSelect('SUM(v.vote) as votesRate')
+            ->leftJoin('AppBundle:Vote', 'v', Join::WITH, 'v.post = p.id')
+            ->orderBy('votesRate', 'DESC')
+            ->groupBy('p.id')
+            ->setMaxResults($limit);
+
+        return $builder
+            ->getQuery()
+            ->getResult();
+    }
+
+    protected function findMostPopular($limit)
+    {
+        $builder = $this
+            ->createQueryBuilder('p')
+            ->select('p')
+            ->addSelect('COUNT(v.vote) as votesCount')
+            ->leftJoin('AppBundle:Vote', 'v', Join::WITH, 'v.post = p.id')
+            ->orderBy('votesCount', 'DESC')
+            ->groupBy('p.id')
+            ->setMaxResults($limit);
+
+        return $builder
+            ->getQuery()
+            ->getResult();
     }
 }
