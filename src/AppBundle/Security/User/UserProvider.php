@@ -122,11 +122,6 @@ class UserProvider extends adUserProvider
 
             $adUser->setDisplayName($user->displayName);
             $adUser->setEmail($user->mail);
-            $adUser->setId($adLdap->utilities()->decodeGuid($user->objectguid));
-            $adUser->setPhoto("data:image/jpeg;base64," . base64_encode($user->thumbnailPhoto));
-            $adUser->setTitle($user->title);
-            $adUser->setManagerId($this->findManagerGUID($adLdap, $user->manager));
-            $adUser->setStartDate($this->convertWindowsTimeToDateTime($user->whenCreated));
             $adUser->setPassword($token->getCredentials());
             
             return true;
