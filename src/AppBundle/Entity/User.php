@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Ztec\Security\ActiveDirectoryBundle\Security\User\adUser;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class User implements UserInterface
+class User extends adUser
 {
     /**
      * @ORM\Id
@@ -51,20 +51,25 @@ class User implements UserInterface
      */
     private $roles = array();
 
+    public function __construct($username = '', $password = '', array $roles = [])
+    {
+        parent::__construct($username, $password, $roles);
+    }
+
     public function getId()
     {
         return $this->id;
     }
 
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
+//    public function getUsername()
+//    {
+//        return $this->username;
+//    }
+//
+//    public function setUsername($username)
+//    {
+//        $this->username = $username;
+//    }
 
     public function getEmail()
     {
