@@ -55,13 +55,10 @@ class Vote
      * Set vote
      *
      * @param integer $vote
-     * @return Vote
      */
     public function setVote($vote)
     {
         $this->vote = $vote;
-
-        return $this;
     }
 
     /**

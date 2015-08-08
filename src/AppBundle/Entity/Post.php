@@ -27,6 +27,11 @@ class Post
      */
     const NUM_ITEMS = 10;
 
+    const STATUS_DRAFT = 0;
+    const STATUS_VOTING = 1;
+    const STATUS_APPROVED = 2;
+    const STATUS_REJECTED = 3;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -87,6 +92,13 @@ class Post
      * )
      */
     private $votes;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(type="integer", options={"default" = 0})
+     */
+    private $state = 0;
 
     public function __construct()
     {
@@ -204,5 +216,15 @@ class Post
     public function setSummary($summary)
     {
         $this->summary = $summary;
+    }
+
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    public function setState($state)
+    {
+        $this->state = $state;
     }
 }
