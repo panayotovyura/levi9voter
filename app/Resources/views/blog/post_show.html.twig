@@ -14,10 +14,10 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') and post.state == constant('AppBundle\\Entity\\Post::STATUS_VOTING') %}
     <div id="post-add-comment" class="well">
         <a class="btn btn-success" href="{{ path('blog_post_vote', { id: post.id, agree: 1 }) }}">
-            <i class="fa fa-plus"></i> {{ 'action.agree'|trans }} ({{ post.agreeCount }})
+            <i class="fa fa-thumbs-up"></i> {{ 'action.agree'|trans }} ({{ post.agreeCount }})
         </a>
         <a class="btn btn-warning" href="{{ path('blog_post_vote', { id: post.id, agree: 0 }) }}">
-            <i class="fa fa-minus"></i> {{ 'action.not-agree'|trans }} ({{ post.notAgreeCount }})
+            <i class="fa fa-thumbs-down"></i> {{ 'action.not-agree'|trans }} ({{ post.notAgreeCount }})
         </a>
     </div>
     {% endif %}
