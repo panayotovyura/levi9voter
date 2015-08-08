@@ -37,6 +37,11 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $uuid;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $password;
@@ -55,6 +60,7 @@ class User implements UserInterface
     {
         return $this->username;
     }
+
     public function setUsername($username)
     {
         $this->username = $username;
@@ -64,6 +70,7 @@ class User implements UserInterface
     {
         return $this->email;
     }
+
     public function setEmail($email)
     {
         $this->email = $email;
@@ -73,9 +80,26 @@ class User implements UserInterface
     {
         return $this->password;
     }
+
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUuid()
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param mixed $uuid
+     */
+    public function setUuid($uuid)
+    {
+        $this->uuid = $uuid;
     }
 
     /**
