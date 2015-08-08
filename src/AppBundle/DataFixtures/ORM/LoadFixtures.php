@@ -145,21 +145,17 @@ MARKDOWN;
         return array(
             'Senior PHP Developer at Levi9: Diving into Dependency Injection',
             'Department Manager, PHP Architect at Levi9: Microservices',
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit',
-            'Pellentesque vitae velit ex',
-            'Mauris dapibus risus quis suscipit vulputate',
-            'Eros diam egestas libero eu vulputate risus',
-            'In hac habitasse platea dictumst',
-            'Morbi tempus commodo mattis',
-            'Ut suscipit posuere justo at vulputate',
-            'Ut eleifend mauris et risus ultrices egestas',
-            'Aliquam sodales odio id eleifend tristique',
-            'Urna nisl sollicitudin id varius orci quam id turpis',
-            'Nulla porta lobortis ligula vel egestas',
-            'Curabitur aliquam euismod dolor non ornare',
-            'Sed varius a risus eget aliquam',
-            'Nunc viverra elit ac laoreet suscipit',
-            'Pellentesque et sapien pulvinar consectetur'
+            'Today is SystemAdmin day, We celebrate it with the best admins ever',
+            'Knowledge sharing session is on at @levi9_rs.',
+            'Jasmina Petrov is talking about the automation of mobile apps testing',
+            'PHP developers, join to Levi9 team, send your CV on jobs-serbia@levi9.com ',
+            'Arch9 Event by Levi9 22 april',
+            'Levi9 Ukraine is the employer for specialists at all career levels',
+            'Working at Levi9 is much more than a job',
+            'You will be a part of a dynamic, qualified and motivated European team with a unique corporate spirit',
+            'Want to know more about Levi9? You are welcome to contact our HR Team',
+            'Levi9 IT services works with worldwide clients well-known clients and projects as well as start-ups',
+            'Levi9 Kiev office is looking for Junior PHP Developer'
         );
     }
 
