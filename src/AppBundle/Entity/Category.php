@@ -106,4 +106,9 @@ class Category
         $this->posts->removeElement($post);
         $post->setCategory(null);
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
