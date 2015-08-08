@@ -9,6 +9,8 @@
                 <a href="{{ path('blog_post', { slug: post.slug }) }}">
                     {{ post.title }}
                 </a>
+                {% set state_classes = {0: 'default', 1: 'info', 2: 'success', 3: 'danger'} %}
+                <span class="label label-{{ state_classes[post.state] }}">{{ ('post.state.'~post.state)|trans }}</span>
             </h2>
 
             {{ post.summary|md2html }}
@@ -18,6 +20,4 @@
 
 {% block sidebar %}
     {{ parent() }}
-
-    {{ show_source_code(_self) }}
 {% endblock %}

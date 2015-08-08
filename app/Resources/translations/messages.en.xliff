@@ -181,7 +181,7 @@
 
             <trans-unit id="post.to_publish_a_comment">
                 <source>post.to_publish_a_comment</source>
-                <target>to publish a comment</target>
+                <target>to publish a comment or vote</target>
             </trans-unit>
             <trans-unit id="post.num_comments">
                 <source>post.num_comments</source>
@@ -194,6 +194,22 @@
             <trans-unit id="post.no_comments">
                 <source>post.no_comments</source>
                 <target>Be the first to comment on this post.</target>
+            </trans-unit>
+            <trans-unit id="post.state.0">
+                <source>post.state.0</source>
+                <target>Draft</target>
+            </trans-unit>
+            <trans-unit id="post.state.1">
+                <source>post.state.1</source>
+                <target>Voting in progress</target>
+            </trans-unit>
+            <trans-unit id="post.state.2">
+                <source>post.state.2</source>
+                <target>Approved</target>
+            </trans-unit>
+            <trans-unit id="post.state.3">
+                <source>post.state.3</source>
+                <target>Rejected</target>
             </trans-unit>
 
             <trans-unit id="help.app_description">
