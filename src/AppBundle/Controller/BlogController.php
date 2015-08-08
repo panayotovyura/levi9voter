@@ -167,7 +167,10 @@ class BlogController extends Controller
 
         $voteEntity = $this->getDoctrine()
             ->getRepository('AppBundle:Vote')
-            ->findOneByAuthorEmail($userEmail);
+            ->findOneBy([
+                'authorEmail' => $userEmail,
+                'post' => $post,
+            ]);
 
         if (!$voteEntity) {
             $voteEntity = new Vote();
