@@ -72,7 +72,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         $category = new Category();
         $category->setName('Improvements');
 
-        foreach (range(1, 10) as $i) {
+        foreach (range(1, 5) as $i) {
             $post = new Post();
 
             $post->setTitle($this->getRandomPostTitle());
@@ -130,9 +130,9 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
 
 ![Image of Yaktocat](http://wildtraveler.com.ua/trash/statica/538/IMG_0528-1.jpg)
 
-https://docs.google.com/spreadsheets/d/19i2BAoHeGYNM9JczxDcXSYGYhBa7NiPfzmwcYy8p3A4/edit#gid=0
+[Google form](https://docs.google.com/spreadsheets/d/19i2BAoHeGYNM9JczxDcXSYGYhBa7NiPfzmwcYy8p3A4/edit#gid=0)
 
-Для того чтобы вы не путались в своих собственных отгулах, мы добавили запрет на создание пересекающихся реквестов. Мы надеемся что это окончательно упростит вашу работу с системой. Также внесли ясность в  использование дней категории «Personal events». Как вы уже знаете, у каждого из сотрудников есть три дополнительных дня отгула для важных событий в вашей жизни, такие как:  Wedding/ Child Birth/Death related. Что значит, что вы можете использовать по одному дню каждого типа.
+Для того чтобы вы не путались в своих собственных отгулах, мы добавили запрет на создание пересекающихся реквестов. Мы надеемся что это окончательно упростит вашу работу с системой. Также внесли ясность в  использование дней категории «Personal events». Как вы уже знаете, у каждого из сотрудников есть три дополнительных дня отгула для важных событий в вашей жизни, такие как:  **Wedding/Child Birth/Death related**. Что значит, что вы можете использовать по одному дню каждого типа.
 В системе они отображаются соответствующим образом: 1/1/1 .
 
 Если есть вопросы – обращайтесь ко мне или Жене Черне.
