@@ -3,7 +3,11 @@
 {% block body_id 'blog_post_show' %}
 
 {% block main %}
-    <h1>{{ post.title }}</h1>
+    {% set state_classes = {0: 'default', 1: 'info', 2: 'success', 3: 'danger'} %}
+    <h1>
+        {{ post.title }}
+        <span class="label label-{{ state_classes[post.state] }}">{{ ('post.state.'~post.state)|trans }}</span>
+    </h1>
 
     {{ post.content|md2html }}
 

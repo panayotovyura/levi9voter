@@ -56,8 +56,12 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('AppBundle:Post')->findLatest(Post::NUM_ITEMS, $state);
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
 
-        return $this->render('blog/index.html.twig', array('posts' => $posts));
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
     }
 
     /**
