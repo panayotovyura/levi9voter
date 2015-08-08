@@ -41,6 +41,10 @@ class PostType extends AbstractType
 
         $builder
             ->add('title', null, array('label' => 'label.title'))
+            ->add('category', 'entity', array(
+                'class' => 'AppBundle\Entity\Category',
+                'choice_label' => 'name',
+            ))
             ->add('summary', 'textarea', array('label' => 'label.summary'))
             ->add('content', 'textarea', array(
                 'attr' => array('rows' => 20),

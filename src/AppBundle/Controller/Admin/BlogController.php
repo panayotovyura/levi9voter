@@ -28,7 +28,6 @@ use AppBundle\Entity\Post;
  * See http://knpbundles.com/keyword/admin
  *
  * @Route("/admin/post")
- * @Security("has_role('ROLE_ADMIN')")
  *
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
@@ -49,11 +48,14 @@ class BlogController extends Controller
      * @Route("/", name="admin_index")
      * @Route("/", name="admin_post_index")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Post')->findAll();
+        $posts = $em->getRepository('AppBundle:Post')->findBy([
+            'authorEmail' => $this->getUser()->getEmail(),
+        ]);
 
         return $this->render('admin/blog/index.html.twig', array('posts' => $posts));
     }
@@ -67,6 +69,7 @@ class BlogController extends Controller
      * NOTE: the Method annotation is optional, but it's a recommended practice
      * to constraint the HTTP methods each controller responds to (by default
      * it responds to all methods).
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction(Request $request)
     {
@@ -82,6 +85,10 @@ class BlogController extends Controller
         // See http://symfony.com/doc/current/best_practices/forms.html#handling-form-submits
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setSlug($this->get('slugger')->slugify($post->getTitle()));
+
+            if ($request->request->has('publish')) {
+                $post->setState(Post::STATUS_VOTING);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
@@ -101,6 +108,7 @@ class BlogController extends Controller
      *
      * @Route("/{id}", requirements={"id" = "\d+"}, name="admin_post_show")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction(Post $post)
     {
@@ -124,11 +132,16 @@ class BlogController extends Controller
      *
      * @Route("/{id}/edit", requirements={"id" = "\d+"}, name="admin_post_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction(Post $post, Request $request)
     {
         if (null === $this->getUser() || !$post->isAuthor($this->getUser())) {
             throw $this->createAccessDeniedException('Posts can only be edited by their authors.');
+        }
+
+        if ($post->getState() !== Post::STATUS_DRAFT) {
+            return $this->redirectToRoute('admin_post_index');
         }
 
         $em = $this->getDoctrine()->getManager();
@@ -140,6 +153,11 @@ class BlogController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $post->setSlug($this->get('slugger')->slugify($post->getTitle()));
+
+            if ($request->request->has('publish')) {
+                $post->setState(Post::STATUS_VOTING);
+            }
+
             $em->flush();
 
             return $this->redirectToRoute('admin_post_edit', array('id' => $post->getId()));

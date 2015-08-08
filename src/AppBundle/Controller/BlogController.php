@@ -14,6 +14,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Form\CommentType;
+use AppBundle\Form\StateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -23,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 use AppBundle\Entity\Vote;
+use AppBundle\Entity\Category;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -41,8 +43,12 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('AppBundle:Post')->findLatest();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
 
-        return $this->render('blog/index.html.twig', array('posts' => $posts));
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
     }
 
     /**
@@ -52,8 +58,27 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('AppBundle:Post')->findLatest(Post::NUM_ITEMS, $state);
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
 
-        return $this->render('blog/index.html.twig', array('posts' => $posts));
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
+    }
+
+    /**
+     * @Route("/category/{id}", name="blog_by_category")
+     */
+    public function byCategoryAction(Category $category)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Post')->findLatest(Post::NUM_ITEMS, null, $category);
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
     }
 
 
@@ -79,7 +104,13 @@ class BlogController extends Controller
      */
     public function postShowAction(Post $post)
     {
-        return $this->render('blog/post_show.html.twig', array('post' => $post));
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+
+        return $this->render('blog/post_show.html.twig', array(
+            'post' => $post,
+            'categories' => $categories,
+        ));
     }
 
     /**
@@ -142,13 +173,59 @@ class BlogController extends Controller
     }
 
     /**
+     * @Route("/post/{postSlug}/state", name = "change_state")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Method("POST")
+     * @ParamConverter("post", options={"mapping": {"postSlug": "slug"}})
+     */
+    public function changeStateAction(Request $request, Post $post)
+    {
+        $form = $this->createStateForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $post->setState($data['state']);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('blog_post', array('slug' => $post->getSlug()));
+        }
+
+        return $this->render('blog/comment_form_error.html.twig', array(
+            'post' => $post,
+            'form' => $form->createView(),
+        ));
+    }
+
+    public function stateFormAction(Post $post)
+    {
+        $form = $this->createStateForm();
+
+        return $this->render('blog/state_form.html.twig', array(
+            'post' => $post,
+            'form' => $form->createView(),
+        ));
+    }
+
+
+
+    /**
      * @Route("/posts/vote/{id}/{agree}", name="blog_post_vote")
      */
     public function voteAction(Post $post, $agree)
     {
         $userEmail = $this->getUser()->getEmail();
 
-        $voteEntity = $this->getDoctrine()->getRepository('AppBundle:Vote')->findOneByAuthorEmail($userEmail);
+        $voteEntity = $this->getDoctrine()
+            ->getRepository('AppBundle:Vote')
+            ->findOneBy([
+                'authorEmail' => $userEmail,
+                'post' => $post,
+            ]);
 
         if (!$voteEntity) {
             $voteEntity = new Vote();
@@ -174,6 +251,14 @@ class BlogController extends Controller
     {
         $form = $this->createForm(new CommentType());
         $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    private function createStateForm()
+    {
+        $form = $this->createForm(new StateType());
+        $form->add('submit', 'submit', array('label' => 'Change State'));
 
         return $form;
     }

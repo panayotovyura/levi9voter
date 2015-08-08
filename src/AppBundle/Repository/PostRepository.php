@@ -25,7 +25,7 @@ use Doctrine\ORM\Query\Expr\Join;
  */
 class PostRepository extends EntityRepository
 {
-    public function findLatest($limit = Post::NUM_ITEMS, $state = null)
+    public function findLatest($limit = Post::NUM_ITEMS, $state = null, $category = null)
     {
         $builder =  $this
             ->createQueryBuilder('p')
@@ -37,6 +37,11 @@ class PostRepository extends EntityRepository
         if (null !== $state) {
             $builder->andWhere('p.state = :state')
                 ->setParameter('state', intval($state));
+        }
+
+        if (null !== $category) {
+            $builder->andWhere('p.category = :category')
+                ->setParameter('category', $category);
         }
 
         return $builder
