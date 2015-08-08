@@ -76,6 +76,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
             $post->setContent($this->getPostContent());
             $post->setAuthorEmail('anna_admin@symfony.com');
             $post->setPublishedAt(new \DateTime('now - '.$i.'days'));
+            $post->setState($this->getRandomState());
 
             foreach (range(1, 5) as $j) {
                 $comment = new Comment();
@@ -186,5 +187,10 @@ MARKDOWN;
         shuffle($phrases);
 
         return implode(' ', array_slice($phrases, 0, $numPhrases-1));
+    }
+
+    private function getRandomState()
+    {
+        return rand(Post::STATUS_DRAFT, Post::STATUS_REJECTED);
     }
 }
