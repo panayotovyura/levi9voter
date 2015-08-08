@@ -88,8 +88,8 @@
                 <source>label.create_post</source>
                 <target>Create post</target>
             </trans-unit>
-            <trans-unit id="label.published_post">
-                <source>label.published_post</source>
+            <trans-unit id="label.publish_post">
+                <source>label.publish_post</source>
                 <target>Publish post</target>
             </trans-unit>
             <trans-unit id="action.back_to_list">
@@ -168,7 +168,7 @@
             </trans-unit>
             <trans-unit id="menu.back_to_blog">
                 <source>menu.back_to_blog</source>
-                <target>Back to blog</target>
+                <target>Back to posts</target>
             </trans-unit>
             <trans-unit id="menu.homepage">
                 <source>menu.homepage</source>

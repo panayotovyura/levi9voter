@@ -61,8 +61,6 @@
 
 {% block sidebar %}
 
-    {% include "blog/categories_list.html.twig" %}
-
     {% if app.user and post.isAuthor(app.user) and post.state == constant('AppBundle\\Entity\\Post::STATUS_DRAFT') %}
         <div class="section">
             <a class="btn btn-lg btn-block btn-success" href="{{ path('admin_post_edit', { id: post.id }) }}">
@@ -70,6 +68,8 @@
             </a>
         </div>
     {% endif %}
+
+    {% include "blog/categories_list.html.twig" %}
 
     {# the parent() function includes the contents defined by the parent template
       ('base.html.twig') for this block ('sidebar'). This is a very convenient way
