@@ -41,8 +41,12 @@ class BlogController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('AppBundle:Post')->findLatest();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
 
-        return $this->render('blog/index.html.twig', array('posts' => $posts));
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
     }
 
     /**
@@ -66,7 +70,13 @@ class BlogController extends Controller
      */
     public function postShowAction(Post $post)
     {
-        return $this->render('blog/post_show.html.twig', array('post' => $post));
+        $em = $this->getDoctrine()->getManager();
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+
+        return $this->render('blog/post_show.html.twig', array(
+            'post' => $post,
+            'categories' => $categories,
+        ));
     }
 
     /**
@@ -135,7 +145,9 @@ class BlogController extends Controller
     {
         $userEmail = $this->getUser()->getEmail();
 
-        $voteEntity = $this->getDoctrine()->getRepository('AppBundle:Vote')->findOneByAuthorEmail($userEmail);
+        $voteEntity = $this->getDoctrine()
+            ->getRepository('AppBundle:Vote')
+            ->findOneByAuthorEmail($userEmail);
 
         if (!$voteEntity) {
             $voteEntity = new Vote();
