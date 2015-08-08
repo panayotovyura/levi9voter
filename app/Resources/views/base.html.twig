@@ -106,16 +106,12 @@
                             {% block categories %}
                             {% endblock %}
 
-                            <div class="section categories">
-                                <div class="well well-lg">
-                                    <p>
-                                        Categories
-                                    </p>
-                                </div>
-                            </div>
+                            {% block voting_filters %}
+                            {% endblock %}
 
                             {% block states %}
                             {% endblock %}
+
                         {% endblock %}
                     </div>
                 </div>

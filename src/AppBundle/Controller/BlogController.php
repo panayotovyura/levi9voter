@@ -90,8 +90,11 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('AppBundle:Post')->findByVoting(Post::NUM_ITEMS, $type);
 
-        return $this->render('blog/index.html.twig', array('posts' => $posts));
-
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
     }
 
     /**

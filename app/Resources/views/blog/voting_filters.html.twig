@@ -1,0 +1,18 @@
+{% block voting_filters %}
+<div class="section voting">
+    <div class="well well-lg">
+        <p>
+            Filter by voting:
+        </p>
+        <ul class="list-unstyled">
+            {% for voting_type in range(0, 1) %}
+                <li>
+                    <a href="{{ path('blog_by_voting', {'type': voting_type}) }}">
+                        {{ ('post.voting.'~voting_type)|trans }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
