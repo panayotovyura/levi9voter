@@ -14,6 +14,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Form\CommentType;
+use AppBundle\Form\StateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -159,6 +160,47 @@ class BlogController extends Controller
     }
 
     /**
+     * @Route("/post/{postSlug}/state", name = "change_state")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @Method("POST")
+     * @ParamConverter("post", options={"mapping": {"postSlug": "slug"}})
+     */
+    public function changeStateAction(Request $request, Post $post)
+    {
+        $form = $this->createStateForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $post->setState($data['state']);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('blog_post', array('slug' => $post->getSlug()));
+        }
+
+        return $this->render('blog/comment_form_error.html.twig', array(
+            'post' => $post,
+            'form' => $form->createView(),
+        ));
+    }
+
+    public function stateFormAction(Post $post)
+    {
+        $form = $this->createStateForm();
+
+        return $this->render('blog/state_form.html.twig', array(
+            'post' => $post,
+            'form' => $form->createView(),
+        ));
+    }
+
+
+
+    /**
      * @Route("/posts/vote/{id}/{agree}", name="blog_post_vote")
      */
     public function voteAction(Post $post, $agree)
@@ -196,6 +238,14 @@ class BlogController extends Controller
     {
         $form = $this->createForm(new CommentType());
         $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    private function createStateForm()
+    {
+        $form = $this->createForm(new StateType());
+        $form->add('submit', 'submit', array('label' => 'Change State'));
 
         return $form;
     }
