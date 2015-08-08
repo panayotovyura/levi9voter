@@ -15,6 +15,7 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Vote;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -95,6 +96,13 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
                 $post->addComment($comment);
             }
 
+            if (rand(0, 1)) {
+                $vote = new Vote();
+                $vote->setAuthorEmail(rand(0, 1) ? 'anna_admin@symfony.com' : 'john_user@symfony.com');
+                $vote->setPost($post);
+                $vote->setVote(rand(0 ,1));
+            }
+
             $manager->persist($post);
             $category->addPost($post);
         }
@@ -115,6 +123,8 @@ incididunt ut labore et **dolore magna aliqua**: Duis aute irure dolor in
 reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
 deserunt mollit anim id est laborum.
+
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
 
   * Ut enim ad minim veniam
   * Quis nostrud exercitation *ullamco laboris*

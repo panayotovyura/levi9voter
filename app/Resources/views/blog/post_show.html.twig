@@ -6,8 +6,8 @@
     <h1>{{ post.title }}</h1>
 
     {{ post.content|md2html }}
-
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and post.state == constant('AppBundle\\Entity\\Post::STATUS_VOTING') %}
     <div id="post-add-comment" class="well">
         <a class="btn btn-success" href="{{ path('blog_post_vote', { id: post.id, agree: 1 }) }}">
             <i class="fa fa-plus"></i> {{ 'action.agree'|trans }}
