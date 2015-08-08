@@ -70,7 +70,14 @@ class BlogController extends Controller
      */
     public function byCategoryAction(Category $category)
     {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Post')->findLatest(Post::NUM_ITEMS, null, $category);
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
 
+        return $this->render('blog/index.html.twig', array(
+            'posts' => $posts,
+            'categories' => $categories,
+        ));
     }
 
     /**
@@ -160,7 +167,10 @@ class BlogController extends Controller
 
         $voteEntity = $this->getDoctrine()
             ->getRepository('AppBundle:Vote')
-            ->findOneByAuthorEmail($userEmail);
+            ->findOneBy([
+                'authorEmail' => $userEmail,
+                'post' => $post,
+            ]);
 
         if (!$voteEntity) {
             $voteEntity = new Vote();

@@ -1,8 +1,8 @@
-{% block categories %}
-    <div class="section categories">
+{% block states %}
+    <div class="section states">
         <div class="well well-lg">
             <p>
-                Categories
+                Filter by state:
             </p>
             <ul class="list-unstyled">
                 <li>
@@ -10,10 +10,10 @@
                         Show all
                     </a>
                 </li>
-                {% for category in categories %}
+                {% for state in range(0, 3) %}
                     <li>
-                        <a href="{{ path('blog_by_category', {'id': category.id}) }}">
-                            {{ category.name }}
+                        <a href="{{ path('blog_by_state', {'state': state}) }}">
+                            {{ ('post.state.'~state)|trans }}
                         </a>
                     </li>
                 {% endfor %}
