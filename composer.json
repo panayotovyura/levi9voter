@@ -4,7 +4,8 @@
     "type": "project",
     "description": "levi9 Voter",
     "autoload": {
-        "psr-0": { "": "src/", "SymfonyStandard": "app/" }
+        "psr-0": { "": "src/", "SymfonyStandard": "app/",  "adLDAP": "libs/adldap/lib"},
+        "psr-4": {"Ztec\\Security\\ActiveDirectoryBundle\\": "libs/ztec/security-active_directory/Ztec/Security/ActiveDirectoryBundle"}
     },
     "require": {
         "php"                                  : ">=5.3.9",
@@ -50,7 +51,8 @@
         "bin-dir": "bin",
         "platform": {
             "php": "5.3.9"
-        }
+        },
+        "preferred-install": "dist"
     },
     "extra": {
         "symfony-app-dir": "app",

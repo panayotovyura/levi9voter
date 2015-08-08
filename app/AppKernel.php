@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new AppBundle\AppBundle(),
+            new Ztec\Security\ActiveDirectoryBundle\ZtecSecurityActiveDirectoryBundle()
         );
 
         // Some bundles are only used while developing the application or during

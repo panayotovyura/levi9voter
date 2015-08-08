@@ -45,3 +45,21 @@ parameters:
     # 'Remember Me' functionality, etc.)
     # see: http://symfony.com/doc/current/reference/configuration/framework.html#secret
     secret: 'secret_value_for_symfony_demo_application'
+
+    ztec.security.active_directory.settings:
+            account_suffix : levi9.com # without the @ at the beginning
+            base_dn : OU=Users,OU=Kiev,OU=Ukraine,OU=Levi9,DC=levi9,DC=com #The DN of the domain
+            domain_controllers : [ levi9.com ] #Servers to use for ldap connection (Random)
+            admin_username: #Null to use the userConnection
+            admin_password: #Null to use the userConnection
+            real_primarygroup : true #For Linux compatibility.
+            use_ssl : false #Set it true need configuration of the server to be useful
+            use_tls : false #Set it true need configuration of the server to be useful
+            recursive_grouproles: false #recursive group roles
+            username_validation_pattern: /^[a-z0-9-.]+$/i #Regex that check the final username value (extracted from patterns below). Must be complient with your Active Directory username policy.
+            username_patterns: #username is extracted from the string the user put into the login form
+    #          - /([^@]*)@riper.fr/i  # like toto@riper.fr
+    #          - /RIPER\\(.*)/i #like RIPER\toto
+    #          - /RIPER.FR\\(.*)/i #like RIEPER.FR\toto
+              - /(.*)/i #like toto
+    ztec_security_active_directory_user_provider.class: AppBundle\Security\User\UserProvider

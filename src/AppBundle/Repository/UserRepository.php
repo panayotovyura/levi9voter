@@ -24,4 +24,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * Inserts data of authenticated user to User table
+     * if user has already been inserted then this function
+     * updates following db values: display_name, manager_id, title
+     *
+     * @param User $user
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function importAuthenticatedUser(User $user)
+    {
+        $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery(
+                'INSERT INTO user(id, username, email, uuid)
+                    VALUES(:id, :username, :email, :uuid)
+                    ON DUPLICATE KEY UPDATE display_name=VALUES(display_name)',
+                [
+                    'id' => $user->getId(),
+                    'username' => $user->getDisplayName(),
+                    'email' => $user->getEmail(),
+                    'uuid' => $user->getId()
+                ]
+            );
+    }
 }
