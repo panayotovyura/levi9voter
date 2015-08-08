@@ -143,16 +143,23 @@ MARKDOWN;
     private function getPhrases()
     {
         return array(
-            'Будет воллейбол и футбол, поэтому берите купальники и плавки ;)',
-            'Ближе к дате напишу все более подробно и отвечу на все ваши вопросы.',
-            'Небольшое обновление по работе системы timeoff-ua.levi9.com',
-            'Очередной обучающий ликбез, в этот раз - по PHP.',
-            'Иван Трофименко, Senior PHP Developer at Levi9: Diving into Dependency Injection',
-            'ндрей Завадский, Department Manager, PHP Architect at Levi9: Microservices',
-            'Ночевка в палатке, комары и прочие радости отсутствия цивилизации!',
-            'Будем есть мясо (но не я), пить шампанское',
-            'Риквест на новые джойстики Sony PS3',
-            'Собираемся на футбол командой Levi9'
+            'Senior PHP Developer at Levi9: Diving into Dependency Injection',
+            'Department Manager, PHP Architect at Levi9: Microservices',
+            'Lorem ipsum dolor sit amet consectetur adipiscing elit',
+            'Pellentesque vitae velit ex',
+            'Mauris dapibus risus quis suscipit vulputate',
+            'Eros diam egestas libero eu vulputate risus',
+            'In hac habitasse platea dictumst',
+            'Morbi tempus commodo mattis',
+            'Ut suscipit posuere justo at vulputate',
+            'Ut eleifend mauris et risus ultrices egestas',
+            'Aliquam sodales odio id eleifend tristique',
+            'Urna nisl sollicitudin id varius orci quam id turpis',
+            'Nulla porta lobortis ligula vel egestas',
+            'Curabitur aliquam euismod dolor non ornare',
+            'Sed varius a risus eget aliquam',
+            'Nunc viverra elit ac laoreet suscipit',
+            'Pellentesque et sapien pulvinar consectetur'
         );
     }
 
