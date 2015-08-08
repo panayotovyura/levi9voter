@@ -32,6 +32,9 @@ class Post
     const STATUS_APPROVED = 2;
     const STATUS_REJECTED = 3;
 
+    const VOTING_MOST_RATED = 0;
+    const VOTING_MOST_POPULAR = 1;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -249,7 +252,6 @@ class Post
     {
         $this->state = $state;
     }
-
 
     public function getAgreeCount()
     {

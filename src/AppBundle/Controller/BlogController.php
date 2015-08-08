@@ -81,6 +81,19 @@ class BlogController extends Controller
         ));
     }
 
+
+    /**
+     * @Route("/voting/{type}", name="blog_by_voting")
+     */
+    public function byVotingAction($type)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Post')->findByVoting(Post::NUM_ITEMS, $type);
+
+        return $this->render('blog/index.html.twig', array('posts' => $posts));
+
+    }
+
     /**
      * @Route("/posts/{slug}", name="blog_post")
      *
