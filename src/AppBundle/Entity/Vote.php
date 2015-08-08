@@ -29,6 +29,12 @@ class Vote
     private $vote;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="votes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $post;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -59,5 +65,14 @@ class Vote
     public function getVote()
     {
         return $this->vote;
+    }
+
+    public function getPost()
+    {
+        return $this->post;
+    }
+    public function setPost(Post $post = null)
+    {
+        $this->post = $post;
     }
 }

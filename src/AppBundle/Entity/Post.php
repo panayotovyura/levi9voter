@@ -79,10 +79,20 @@ class Post
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(
+     *      targetEntity="Vote",
+     *      mappedBy="post",
+     *      orphanRemoval=true
+     * )
+     */
+    private $votes;
+
     public function __construct()
     {
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId()
@@ -167,6 +177,23 @@ class Post
     {
         $this->comments->removeElement($comment);
         $comment->setPost(null);
+    }
+
+    public function getVotes()
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote)
+    {
+        $this->votes->add($vote);
+        $vote->setPost($this);
+    }
+
+    public function removeVote(Vote $vote)
+    {
+        $this->votes->removeElement($vote);
+        $vote->setPost(null);
     }
 
     public function getSummary()
