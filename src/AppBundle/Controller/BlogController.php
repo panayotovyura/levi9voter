@@ -133,8 +133,15 @@ class BlogController extends Controller
      */
     public function voteAction(Post $post, $agree)
     {
-        $voteEntity = new Vote();
-        $voteEntity->setAuthorEmail($this->getUser()->getEmail())
+        $userEmail = $this->getUser()->getEmail();
+
+        $voteEntity = $this->getDoctrine()->getRepository('AppBundle:Vote')->findOneByAuthorEmail($userEmail);
+
+        if (!$voteEntity) {
+            $voteEntity = new Vote();
+        }
+
+        $voteEntity->setAuthorEmail($userEmail)
             ->setPost($post)
             ->setVote($agree);
 
