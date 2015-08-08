@@ -10,4 +10,4 @@
 /composer.phar
 /vendor/
 /web/bundles/
-/app/data/
+/app/data/*
