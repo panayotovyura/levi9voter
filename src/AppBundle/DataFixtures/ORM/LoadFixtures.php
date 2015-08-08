@@ -110,6 +110,8 @@ reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
 Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
 deserunt mollit anim id est laborum.
 
+![Image of Yaktocat](https://octodex.github.com/images/yaktocat.png)
+
   * Ut enim ad minim veniam
   * Quis nostrud exercitation *ullamco laboris*
   * Nisi ut aliquip ex ea commodo consequat

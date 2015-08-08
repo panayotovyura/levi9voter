@@ -24,14 +24,21 @@ use AppBundle\Entity\Post;
  */
 class PostRepository extends EntityRepository
 {
-    public function findLatest($limit = Post::NUM_ITEMS)
+    public function findLatest($limit = Post::NUM_ITEMS, $state = null)
     {
-        return $this
+        $builder =  $this
             ->createQueryBuilder('p')
             ->select('p')
             ->where('p.publishedAt <= :now')->setParameter('now', new \DateTime())
             ->orderBy('p.publishedAt', 'DESC')
-            ->setMaxResults($limit)
+            ->setMaxResults($limit);
+
+        if (null !== $state) {
+            $builder->andWhere('p.state = :state')
+                ->setParameter('state', intval($state));
+        }
+
+        return $builder
             ->getQuery()
             ->getResult()
         ;
