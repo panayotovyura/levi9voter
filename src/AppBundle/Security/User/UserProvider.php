@@ -122,6 +122,7 @@ class UserProvider extends adUserProvider
 
             $adUser->setDisplayName($user->displayName);
             $adUser->setEmail($user->mail);
+            $adUser->setRoles(['ROLE_USER']);
             $adUser->setPassword($token->getCredentials());
             
             return true;
