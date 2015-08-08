@@ -48,16 +48,16 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         $passwordEncoder = $this->container->get('security.password_encoder');
 
         $johnUser = new User();
-        $johnUser->setUsername('john_user');
-        $johnUser->setEmail('john_user@symfony.com');
+        $johnUser->setUsername('Denis Kiprushev');
+        $johnUser->setEmail('d.kiprushev@levi9.com');
         $encodedPassword = $passwordEncoder->encodePassword($johnUser, 'kitten');
         $johnUser->setPassword($encodedPassword);
         $johnUser->setUuid('0B353BD-A89E-475E-922E-FG26FC542824');
         $manager->persist($johnUser);
 
         $annaAdmin = new User();
-        $annaAdmin->setUsername('anna_admin');
-        $annaAdmin->setEmail('anna_admin@symfony.com');
+        $annaAdmin->setUsername('Alex Martynenko');
+        $annaAdmin->setEmail('a.martynenko@levi9.com');
         $annaAdmin->setRoles(array('ROLE_ADMIN'));
         $encodedPassword = $passwordEncoder->encodePassword($annaAdmin, 'kitten');
         $annaAdmin->setPassword($encodedPassword);
@@ -72,14 +72,14 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         $category = new Category();
         $category->setName('Improvements');
 
-        foreach (range(1, 10) as $i) {
+        foreach (range(1, 5) as $i) {
             $post = new Post();
 
             $post->setTitle($this->getRandomPostTitle());
             $post->setSummary($this->getRandomPostSummary());
             $post->setSlug($this->container->get('slugger')->slugify($post->getTitle()));
             $post->setContent($this->getPostContent());
-            $post->setAuthorEmail('anna_admin@symfony.com');
+            $post->setAuthorEmail('a.martynenko@levi9.com');
             $post->setPublishedAt(new \DateTime('now - '.$i.'days'));
             $post->setState($this->getRandomState());
             $post->setCategory($category);
@@ -87,7 +87,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
             foreach (range(1, 5) as $j) {
                 $comment = new Comment();
 
-                $comment->setAuthorEmail('john_user@symfony.com');
+                $comment->setAuthorEmail('d.kiprushev@levi9.com');
                 $comment->setPublishedAt(new \DateTime('now + '.($i + $j).'seconds'));
                 $comment->setContent($this->getRandomCommentContent());
                 $comment->setPost($post);
@@ -98,7 +98,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
 
             if (rand(0, 1)) {
                 $vote = new Vote();
-                $vote->setAuthorEmail(rand(0, 1) ? 'anna_admin@symfony.com' : 'john_user@symfony.com');
+                $vote->setAuthorEmail(rand(0, 1) ? 'a.martynenko@levi9.com' : 'd.kiprushev@levi9.com');
                 $vote->setPost($post);
                 $vote->setVote(rand(0 ,1));
             }
@@ -118,63 +118,44 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
     private function getPostContent()
     {
         return <<<MARKDOWN
-Lorem ipsum dolor sit amet consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et **dolore magna aliqua**: Duis aute irure dolor in
-reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-deserunt mollit anim id est laborum.
+Всем привет!
+Есть предложение покататься на байдарках в выходные.
+Ночевка в палатке, комары и прочие радости отсутствия цивилизации!
+Компания оплачивает услуги агенства, куда входят: дорога, питание, аренда байдарок, лодок и т.д.
+От нас: желание отлично провести время не покалечившись.
 
 ![Image of Yaktocat](https://www.levi9.com/wp-content/themes/levi9/imgs/logo.png)
 
-  * Ut enim ad minim veniam
-  * Quis nostrud exercitation *ullamco laboris*
-  * Nisi ut aliquip ex ea commodo consequat
+Просьба проголосовать за дату, которая бы подошла вам. Если обе даты вам подходят – ставьте крестик под обеими датами, соответственно.
 
-Praesent id fermentum lorem. Ut est lorem, fringilla at accumsan nec, euismod at
-nunc. Aenean mattis sollicitudin mattis. Nullam pulvinar vestibulum bibendum.
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
-himenaeos. Fusce nulla purus, gravida ac interdum ut, blandit eget ex. Duis a
-luctus dolor.
+![Image of Yaktocat](http://wildtraveler.com.ua/trash/statica/538/IMG_0528-1.jpg)
 
-Integer auctor massa maximus nulla scelerisque accumsan. *Aliquam ac malesuada*
-ex. Pellentesque tortor magna, vulputate eu vulputate ut, venenatis ac lectus.
-Praesent ut lacinia sem. Mauris a lectus eget felis mollis feugiat. Quisque
-efficitur, mi ut semper pulvinar, urna urna blandit massa, eget tincidunt augue
-nulla vitae est.
+[Google form](https://docs.google.com/spreadsheets/d/19i2BAoHeGYNM9JczxDcXSYGYhBa7NiPfzmwcYy8p3A4/edit#gid=0)
 
-Ut posuere aliquet tincidunt. Aliquam erat volutpat. **Class aptent taciti**
-sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi
-arcu orci, gravida eget aliquam eu, suscipit et ante. Morbi vulputate metus vel
-ipsum finibus, ut dapibus massa feugiat. Vestibulum vel lobortis libero. Sed
-tincidunt tellus et viverra scelerisque. Pellentesque tincidunt cursus felis.
-Sed in egestas erat.
+Для того чтобы вы не путались в своих собственных отгулах, мы добавили запрет на создание пересекающихся реквестов. Мы надеемся что это окончательно упростит вашу работу с системой. Также внесли ясность в  использование дней категории «Personal events». Как вы уже знаете, у каждого из сотрудников есть три дополнительных дня отгула для важных событий в вашей жизни, такие как:  **Wedding/Child Birth/Death related**. Что значит, что вы можете использовать по одному дню каждого типа.
+В системе они отображаются соответствующим образом: 1/1/1 .
 
-Aliquam pulvinar interdum massa, vel ullamcorper ante consectetur eu. Vestibulum
-lacinia ac enim vel placerat. Integer pulvinar magna nec dui malesuada, nec
-congue nisl dictum. Donec mollis nisl tortor, at congue erat consequat a. Nam
-tempus elit porta, blandit elit vel, viverra lorem. Sed sit amet tellus
-tincidunt, faucibus nisl in, aliquet libero.
+Если есть вопросы – обращайтесь ко мне или Жене Черне.
+
 MARKDOWN;
     }
 
     private function getPhrases()
     {
         return array(
-            'Lorem ipsum dolor sit amet consectetur adipiscing elit',
-            'Pellentesque vitae velit ex',
-            'Mauris dapibus risus quis suscipit vulputate',
-            'Eros diam egestas libero eu vulputate risus',
-            'In hac habitasse platea dictumst',
-            'Morbi tempus commodo mattis',
-            'Ut suscipit posuere justo at vulputate',
-            'Ut eleifend mauris et risus ultrices egestas',
-            'Aliquam sodales odio id eleifend tristique',
-            'Urna nisl sollicitudin id varius orci quam id turpis',
-            'Nulla porta lobortis ligula vel egestas',
-            'Curabitur aliquam euismod dolor non ornare',
-            'Sed varius a risus eget aliquam',
-            'Nunc viverra elit ac laoreet suscipit',
-            'Pellentesque et sapien pulvinar consectetur',
+            'Senior PHP Developer at Levi9: Diving into Dependency Injection',
+            'Department Manager, PHP Architect at Levi9: Microservices',
+            'Today is SystemAdmin day, We celebrate it with the best admins ever',
+            'Knowledge sharing session is on at @levi9_rs.',
+            'Jasmina Petrov is talking about the automation of mobile apps testing',
+            'PHP developers, join to Levi9 team, send your CV on jobs-serbia@levi9.com ',
+            'Arch9 Event by Levi9 22 april',
+            'Levi9 Ukraine is the employer for specialists at all career levels',
+            'Working at Levi9 is much more than a job',
+            'You will be a part of a dynamic, qualified and motivated European team with a unique corporate spirit',
+            'Want to know more about Levi9? You are welcome to contact our HR Team',
+            'Levi9 IT services works with worldwide clients well-known clients and projects as well as start-ups',
+            'Levi9 Kiev office is looking for Junior PHP Developer'
         );
     }
 
@@ -185,14 +166,34 @@ MARKDOWN;
         return $titles[array_rand($titles)];
     }
 
+
+    private function getSummaries()
+    {
+        return [
+            'Всем привет!
+            Есть предложение покататься на байдарках в выходные.
+            Ночевка в палатке, комары и прочие радости отсутствия цивилизации!
+            Компания оплачивает услуги агенства, куда входят: дорога, питание, аренда байдарок, лодок и т.д.
+            От нас: желание отлично провести время не покалечившись.',
+        'Давненько у нас не было повода что-нибудь хорошо отпраздновать!  Итак, 1 августа,в субботу мы отмечаем 10 - летие компании на одном из киевских пляжей.
+Будем есть мясо (но не я), пить шампанское и поздравлять тех, кто сделал невозможное в IT мире и проработал в нашей компании более пяти и десяти лет!',
+            'Всем привет!
+Небольшое обновление по работе системы timeoff-ua.levi9.com/:
+Для того чтобы вы не путались в своих собственных отгулах, мы добавили запрет на создание пересекающихся реквестов. Мы надеемся что это окончательно упростит вашу работу с системой. Также внесли ясность в  использование дней категории «Personal events». Как вы уже знаете, у каждого из сотрудников есть три дополнительных дня отгула для важных событий в вашей жизни, такие как:  Wedding/ Child Birth/Death related. Что значит, что вы можете использовать по одному дню каждого типа.
+В системе они отображаются соответствующим образом: 1/1/1 .
+
+Если есть вопросы – обращайтесь ко мне или Жене Черне.'
+
+        ];
+    }
+
     private function getRandomPostSummary()
     {
-        $phrases = $this->getPhrases();
+        $summaries = $this->getSummaries();
 
-        $numPhrases = rand(6, 12);
-        shuffle($phrases);
+        $num = rand(0, 2);
 
-        return implode(' ', array_slice($phrases, 0, $numPhrases-1));
+        return $summaries[$num];
     }
 
     private function getRandomCommentContent()

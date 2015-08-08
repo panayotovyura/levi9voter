@@ -66,10 +66,10 @@ class User extends adUser
 //        return $this->username;
 //    }
 //
-//    public function setUsername($username)
-//    {
-//        $this->username = $username;
-//    }
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
 
     public function getEmail()
     {
