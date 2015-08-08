@@ -50,6 +50,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         $johnUser->setEmail('john_user@symfony.com');
         $encodedPassword = $passwordEncoder->encodePassword($johnUser, 'kitten');
         $johnUser->setPassword($encodedPassword);
+        $johnUser->setUuid('0B353BD-A89E-475E-922E-FG26FC542824');
         $manager->persist($johnUser);
 
         $annaAdmin = new User();
@@ -58,6 +59,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         $annaAdmin->setRoles(array('ROLE_ADMIN'));
         $encodedPassword = $passwordEncoder->encodePassword($annaAdmin, 'kitten');
         $annaAdmin->setPassword($encodedPassword);
+        $annaAdmin->setUuid('0B353BD-A89E-475E-922E-FG26FC542825');
         $manager->persist($annaAdmin);
 
         $manager->flush();
