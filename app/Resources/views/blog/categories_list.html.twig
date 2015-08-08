@@ -1,0 +1,23 @@
+{% block categories %}
+    <div class="section categories">
+        <div class="well well-lg">
+            <p>
+                Categories
+            </p>
+            <ul class="list-unstyled">
+                <li>
+                    <a href="{{ path('blog_index') }}">
+                        Show all
+                    </a>
+                </li>
+                {% for category in categories %}
+                    <li>
+                        <a href="#">
+                            {{ category.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

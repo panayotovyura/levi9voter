@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Intl;
 use AppBundle\Entity\Vote;
+use AppBundle\Entity\Category;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -62,6 +63,14 @@ class BlogController extends Controller
             'posts' => $posts,
             'categories' => $categories,
         ));
+    }
+
+    /**
+     * @Route("/category/{id}", name="blog_by_category")
+     */
+    public function byCategoryAction(Category $category)
+    {
+
     }
 
     /**
