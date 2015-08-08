@@ -41,11 +41,11 @@
             </trans-unit>
             <trans-unit id="title.post_list">
                 <source>title.post_list</source>
-                <target>Post List</target>
+                <target>Vote List</target>
             </trans-unit>
             <trans-unit id="title.edit_post">
                 <source>title.edit_post</source>
-                <target>Edit post #%id%</target>
+                <target>Edit vote #%id%</target>
             </trans-unit>
             <trans-unit id="title.add_comment">
                 <source>title.add_comment</source>
@@ -70,7 +70,7 @@
             </trans-unit>
             <trans-unit id="action.edit_post">
                 <source>action.edit_post</source>
-                <target>Edit post</target>
+                <target>Edit vote</target>
             </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
@@ -78,23 +78,23 @@
             </trans-unit>
             <trans-unit id="action.delete_post">
                 <source>action.delete_post</source>
-                <target>Delete post</target>
+                <target>Delete vote</target>
             </trans-unit>
             <trans-unit id="action.create_post">
                 <source>action.create_post</source>
-                <target>Create a new post</target>
+                <target>Create a new vote</target>
             </trans-unit>
             <trans-unit id="label.create_post">
                 <source>label.create_post</source>
-                <target>Create post</target>
+                <target>Create vote</target>
             </trans-unit>
             <trans-unit id="label.publish_post">
                 <source>label.publish_post</source>
-                <target>Publish post</target>
+                <target>Publish vote</target>
             </trans-unit>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
-                <target>Back to the post list</target>
+                <target>Back to the vote list</target>
             </trans-unit>
             <trans-unit id="action.publish_comment">
                 <source>action.publish_comment</source>
@@ -155,7 +155,7 @@
             </trans-unit>
             <trans-unit id="title.post_new">
                 <source>title.post_new</source>
-                <target>Post creation</target>
+                <target>Vote creation</target>
             </trans-unit>
             <trans-unit id="action.edit_contents">
                 <source>action.edit_contents</source>
@@ -164,11 +164,11 @@
 
             <trans-unit id="menu.post_list">
                 <source>menu.post_list</source>
-                <target>Post list</target>
+                <target>Vote list</target>
             </trans-unit>
             <trans-unit id="menu.back_to_blog">
                 <source>menu.back_to_blog</source>
-                <target>Back to posts</target>
+                <target>Back to votes</target>
             </trans-unit>
             <trans-unit id="menu.homepage">
                 <source>menu.homepage</source>
@@ -197,7 +197,7 @@
             </trans-unit>
             <trans-unit id="post.no_comments">
                 <source>post.no_comments</source>
-                <target>Be the first to comment on this post.</target>
+                <target>Be the first to comment on this vote.</target>
             </trans-unit>
             <trans-unit id="post.state.0">
                 <source>post.state.0</source>
