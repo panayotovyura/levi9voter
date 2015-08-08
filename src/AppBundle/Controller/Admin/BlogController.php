@@ -48,6 +48,7 @@ class BlogController extends Controller
      * @Route("/", name="admin_index")
      * @Route("/", name="admin_post_index")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction()
     {
@@ -68,6 +69,7 @@ class BlogController extends Controller
      * NOTE: the Method annotation is optional, but it's a recommended practice
      * to constraint the HTTP methods each controller responds to (by default
      * it responds to all methods).
+     * @Security("has_role('ROLE_USER')")
      */
     public function newAction(Request $request)
     {
@@ -106,6 +108,7 @@ class BlogController extends Controller
      *
      * @Route("/{id}", requirements={"id" = "\d+"}, name="admin_post_show")
      * @Method("GET")
+     * @Security("has_role('ROLE_USER')")
      */
     public function showAction(Post $post)
     {
@@ -129,6 +132,7 @@ class BlogController extends Controller
      *
      * @Route("/{id}/edit", requirements={"id" = "\d+"}, name="admin_post_edit")
      * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
      */
     public function editAction(Post $post, Request $request)
     {
