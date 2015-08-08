@@ -85,6 +85,12 @@ class Post
     private $comments;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
      * @ORM\OneToMany(
      *      targetEntity="Vote",
      *      mappedBy="post",
@@ -105,6 +111,22 @@ class Post
         $this->publishedAt = new \DateTime();
         $this->comments = new ArrayCollection();
         $this->votes = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory(Category $category = null)
+    {
+        $this->category = $category;
     }
 
     public function getId()
