@@ -12,6 +12,12 @@
                 {% set state_classes = {0: 'default', 1: 'info', 2: 'success', 3: 'danger'} %}
                 <span class="label label-{{ state_classes[post.state] }}">{{ ('post.state.'~post.state)|trans }}</span>
             </h2>
+            <span class="label label-success">
+                <i class="fa fa-thumbs-up"></i>({{ post.agreeCount }})
+            </span>&nbsp;
+            <span class="label label-danger">
+                <i class="fa fa-thumbs-down"></i>({{ post.notAgreeCount }})
+            </span>
 
             {{ post.summary|md2html }}
         </article>
