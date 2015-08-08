@@ -88,6 +88,10 @@
                 <source>label.create_post</source>
                 <target>Create post</target>
             </trans-unit>
+            <trans-unit id="label.published_post">
+                <source>label.published_post</source>
+                <target>Publish post</target>
+            </trans-unit>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
                 <target>Back to the post list</target>
