@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Vote
@@ -33,6 +34,12 @@ class Vote
      * @ORM\JoinColumn(nullable=false)
      */
     private $post;
+
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\Email()
+     */
+    private $authorEmail;
 
     /**
      * Get id
@@ -74,5 +81,14 @@ class Vote
     public function setPost(Post $post = null)
     {
         $this->post = $post;
+    }
+
+    public function getAuthorEmail()
+    {
+        return $this->authorEmail;
+    }
+    public function setAuthorEmail($authorEmail)
+    {
+        $this->authorEmail = $authorEmail;
     }
 }

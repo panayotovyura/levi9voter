@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Symfony Demo application{% endblock %}</title>
+        <title>{% block title %}Levi9 voter{% endblock %}</title>
 
         {% block stylesheets %}
         {# uncomment the following lines to compile SCSS assets with Assetic
@@ -35,7 +35,7 @@
                     <div class="container">
                         <div class="navbar-header">
                             <a class="navbar-brand" href="{{ path('homepage') }}">
-                                Symfony Demo
+                                Levi9 Voter
                             </a>
 
                             <button type="button" class="navbar-toggle"
@@ -106,10 +106,7 @@
                             <div class="section about">
                                 <div class="well well-lg">
                                     <p>
-                                        {{ 'help.app_description'|trans|raw }}
-                                    </p>
-                                    <p>
-                                        {{ 'help.more_information'|trans|raw }}
+                                        Categories
                                     </p>
                                 </div>
                             </div>
@@ -124,14 +121,12 @@
                 <div class="container">
                     <div class="row">
                         <div id="footer-copyright" class="col-md-6">
-                            <p>&copy; {{ 'now'|date('Y') }} - The Symfony Project</p>
-                            <p>{{ 'mit_license'|trans }}</p>
+                            <p>&copy; {{ 'now'|date('Y') }} - Levi9</p>
+                            <p>PHP hackathon application</p>
                         </div>
                         <div id="footer-resources" class="col-md-6">
                             <p>
-                                <a href="https://twitter.com/symfony"><i class="fa fa-twitter"></i></a>
-                                <a href="https://www.facebook.com/SensioLabs"><i class="fa fa-facebook"></i></a>
-                                <a href="http://symfony.com/blog"><i class="fa fa-rss"></i></a>
+                                <a href="http://levi9.com"><i class="fa fa-globe"></i></a>
                             </p>
                         </div>
                     </div>
