@@ -248,6 +248,14 @@
                 <source>help.add_user</source>
                 <target>If you want to create new users, run this other command:</target>
             </trans-unit>
+            <trans-unit id="action.agree">
+                <source>action.agree</source>
+                <target>Agree</target>
+            </trans-unit>
+            <trans-unit id="action.not-agree">
+                <source>action.not-agree</source>
+                <target>Not agree</target>
+            </trans-unit>
             <trans-unit id="help.more_information">
                 <source>help.more_information</source>
                 <target><![CDATA[For more information, check out the <a href="http://symfony.com/doc">Symfony doc</a>.]]></target>

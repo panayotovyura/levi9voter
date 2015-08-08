@@ -227,4 +227,29 @@ class Post
     {
         $this->state = $state;
     }
+
+
+    public function getAgreeCount()
+    {
+        $agree = 0;
+        foreach ($this->votes as $vote) {
+            if ($vote->getVote()) {
+                $agree++;
+            }
+        }
+
+        return $agree;
+    }
+
+    public function getNotAgreeCount()
+    {
+        $notAgree = 0;
+        foreach ($this->votes as $vote) {
+            if (!$vote->getVote()) {
+                $notAgree++;
+            }
+        }
+
+        return $notAgree;
+    }
 }
