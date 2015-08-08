@@ -1,8 +1,8 @@
 {
-    "name": "symfony/symfony-demo",
+    "name": "levi9/voter",
     "license": "MIT",
     "type": "project",
-    "description": "Symfony Demo Application",
+    "description": "levi9 Voter",
     "autoload": {
         "psr-0": { "": "src/", "SymfonyStandard": "app/" }
     },
