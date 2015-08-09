@@ -9,7 +9,7 @@
         <span class="label label-{{ state_classes[post.state] }}">{{ ('post.state.'~post.state)|trans }}</span>
     </h1>
 
-    {{ post.content|md2html }}
+    {{ post.content|e|md2html }}
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') and post.state == constant('AppBundle\\Entity\\Post::STATUS_VOTING') %}
     <div id="post-add-comment" class="well">
@@ -52,7 +52,7 @@
                 <strong>{{ comment.publishedAt|localizeddate('medium', 'short') }}</strong>
             </h4>
             <div class="col-sm-9">
-                {{ comment.content|md2html }}
+                {{ comment.content|e|md2html }}
             </div>
         </div>
     {% else %}
