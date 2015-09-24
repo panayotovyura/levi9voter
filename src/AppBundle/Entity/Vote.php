@@ -13,6 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Vote
 {
+    const LIKE = 1;
+    const DISLIKE = -1;
+
+
     /**
      * @var integer
      *
@@ -54,11 +58,11 @@ class Vote
     /**
      * Set vote
      *
-     * @param integer $vote
+     * @param int $vote
      */
     public function setVote($vote)
     {
-        $this->vote = $vote;
+        $this->vote = ($vote == self::LIKE) ? self::LIKE : self::DISLIKE;
         return $this;
     }
 

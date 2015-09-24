@@ -257,11 +257,10 @@ class Post
     {
         $agree = 0;
         foreach ($this->votes as $vote) {
-            if ($vote->getVote()) {
+            if ($vote->getVote() == Vote::LIKE) {
                 $agree++;
             }
         }
-
         return $agree;
     }
 
@@ -269,7 +268,7 @@ class Post
     {
         $notAgree = 0;
         foreach ($this->votes as $vote) {
-            if (!$vote->getVote()) {
+            if ($vote->getVote() == Vote::DISLIKE) {
                 $notAgree++;
             }
         }
