@@ -4,8 +4,7 @@
     "type": "project",
     "description": "levi9 Voter",
     "autoload": {
-        "psr-0": { "": "src/", "SymfonyStandard": "app/",  "adLDAP": "libs/adldap/lib"},
-        "psr-4": {"Ztec\\Security\\ActiveDirectoryBundle\\": "libs/ztec/security-active_directory/Ztec/Security/ActiveDirectoryBundle"}
+        "psr-0": { "": "src/", "SymfonyStandard": "app/"}
     },
     "require": {
         "php"                                  : ">=5.3.9",
@@ -24,7 +23,8 @@
         "symfony/monolog-bundle"               : "~2.7",
         "symfony/swiftmailer-bundle"           : "~2.3",
         "symfony/symfony"                      : "~2.7",
-        "twig/extensions"                      : "~1.2"
+        "twig/extensions"                      : "~1.2",
+        "riper/security-active_directory"      : "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

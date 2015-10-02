@@ -4,7 +4,7 @@ security:
 #        # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
 #        AppBundle\Entity\User: bcrypt
     encoders:
-        Ztec\Security\ActiveDirectoryBundle\Security\User\adUser : plaintext
+        Riper\Security\ActiveDirectoryBundle\Security\User\AdUser : plaintext
 
 #    providers:
 #        # in this example, users are stored via Doctrine in the database
@@ -14,36 +14,13 @@ security:
 #            entity: { class: AppBundle:User, property: username }
     providers:
         active_directory_provider:
-              id: ztec.security.active.directory.user.provider
+              id: riper.security.active.directory.user.provider
 
     # http://symfony.com/doc/current/book/security.html#firewalls-authentication
     firewalls:
-        secured_area:
-            # this firewall applies to all URLs
-            pattern: ^/
-
-            # but the firewall does not require login on every page
-            # denying access is done in access_control or in your controllers
-            anonymous: true
-
-            # This allows the user to login by submitting a username and password
-            # Reference: http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            form_login:
-                # The route name that the login form submits to
-                check_path: security_login_check
-                # The name of the route where the login form lives
-                # When the user tries to access a protected page, they are redirected here
-                login_path: security_login_form
-                # Secure the login form against CSRF
-                # Reference: http://symfony.com/doc/current/cookbook/security/csrf_in_login_form.html
-                csrf_provider: security.csrf.token_manager
-                success_handler: login_success_handler
-
-            logout:
-                # The route name the user can go to in order to logout
-                path: security_logout
-                # The name of the route to redirect to after logging out
-                target: homepage
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         default:
             # this firewall applies to all URLs
             pattern: ^/
@@ -60,11 +37,8 @@ security:
                 path:     /
                 domain:   ~
             logout:
-                csrf_parameter:       _csrf_token
-                csrf_token_generator: form.csrf_provider
-                csrf_token_id:        logout
-                path:                 security_logout
-                target:               homepage
+                path:   security_logout
+                target: homepage
 
     access_control:
         # this is a catch-all for the admin area

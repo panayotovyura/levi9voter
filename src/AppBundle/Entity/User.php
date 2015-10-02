@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ztec\Security\ActiveDirectoryBundle\Security\User\adUser;
+use Riper\Security\ActiveDirectoryBundle\Security\User\AdUser;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -17,7 +17,7 @@ use Ztec\Security\ActiveDirectoryBundle\Security\User\adUser;
  * @author Ryan Weaver <weaverryan@gmail.com>
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
-class User extends adUser
+class User extends AdUser
 {
     /**
      * @ORM\Id
@@ -115,7 +115,7 @@ class User extends adUser
         $roles = $this->roles;
 
         // guarantees that a user always has at least one role for security
-        if (empty($roles)) {
+        if (count($roles) > 0) {
             $roles[] = 'ROLE_USER';
         }
 
@@ -135,8 +135,6 @@ class User extends adUser
         // See "Do you need to use a Salt?" at http://symfony.com/doc/current/cookbook/security/entity_provider.html
         // we're using bcrypt in security.yml to encode the password, so
         // the salt value is built-in and you don't have to generate one
-
-        return;
     }
 
     /**

@@ -11,6 +11,8 @@
 
 namespace AppBundle;
 
+use AppBundle\DependencyInjection\Compiler\OverrideServiceCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -35,9 +37,13 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class AppBundle extends Bundle
 {
-    // At first it's common to leave this class empty, but when the application grows,
-    // you may need to add some initialization code in the boot() method.
-    //
     // Checkout the Symfony\Component\HttpKernel\Bundle\Bundle class to see all
     // the available methods for bundles.
+
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new OverrideServiceCompilerPass());
+    }
 }
