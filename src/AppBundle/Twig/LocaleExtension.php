@@ -41,7 +41,10 @@ class LocaleExtension extends \Twig_Extension
         $localeCodes = explode('|', $this->locales);
 
         foreach ($localeCodes as $localeCode) {
-            $locales[] = array('code' => $localeCode, 'name' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode));
+            $locales[] = array(
+                'code' => $localeCode,
+                'name' => Intl::getLocaleBundle()->getLocaleName($localeCode, $localeCode)
+            );
         }
 
         return $locales;

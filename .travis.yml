@@ -41,3 +41,6 @@ install:
 
 script:
   - phpunit -c app
+  - ./bin/phpcs --standard=./vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PSR2/ruleset.xml src/
+  - ./bin/phpmd src/ text codesize, controversial, design
+  - ./bin/phpcpd src/

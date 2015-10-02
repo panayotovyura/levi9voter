@@ -88,7 +88,7 @@ class BlogController extends Controller
     public function byVotingAction($type)
     {
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Post')->findByVoting(Post::NUM_ITEMS, $type);
+        $posts = $em->getRepository('AppBundle:Post')->findByVoting($type, Post::NUM_ITEMS);
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
         return $this->render('blog/index.html.twig', array(
@@ -122,10 +122,6 @@ class BlogController extends Controller
      *
      * @Method("POST")
      * @ParamConverter("post", options={"mapping": {"postSlug": "slug"}})
-     *
-     * NOTE: The ParamConverter mapping is required because the route parameter
-     * (postSlug) doesn't match any of the Doctrine entity properties (slug).
-     * See http://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html#doctrine-converter
      */
     public function commentNewAction(Request $request, Post $post)
     {

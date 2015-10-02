@@ -27,7 +27,10 @@
         "riper/security-active_directory"      : "^1.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "squizlabs/php_codesniffer": "2.*",
+        "phpmd/phpmd": "@stable",
+        "sebastian/phpcpd": "*"
     },
     "scripts": {
         "post-install-cmd": [

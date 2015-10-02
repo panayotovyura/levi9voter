@@ -50,7 +50,7 @@ class PostRepository extends EntityRepository
         ;
     }
 
-    public function findByVoting($limit = Post::NUM_ITEMS, $type)
+    public function findByVoting($type, $limit = Post::NUM_ITEMS)
     {
         if ($type == Post::VOTING_MOST_RATED) {
             $postsCollection =  $this->findMostRated($limit);
@@ -60,7 +60,7 @@ class PostRepository extends EntityRepository
 
         $formattedOutput = [];
 
-        foreach($postsCollection as $postItem) {
+        foreach ($postsCollection as $postItem) {
             $post = reset($postItem);
             $formattedOutput[] = $post;
         }

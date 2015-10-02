@@ -161,7 +161,11 @@ class UserProvider extends AdUserProvider
     protected function findManagerGUID(adLDAP $adLdap, $dn = '')
     {
         if (!empty($dn)) {
-            $filter = '(&(objectClass=user)(samaccounttype=' . adLDAP::ADLDAP_NORMAL_ACCOUNT . ')(objectCategory=person)(distinguishedname=' . $dn . '))';
+            $filter = '('
+                . '&(objectClass=user)'
+                . '(samaccounttype=' . adLDAP::ADLDAP_NORMAL_ACCOUNT . ')'
+                . '(objectCategory=person)(distinguishedname=' . $dn . ')'
+                . ')';
             $sr = ldap_search($adLdap->getLdapConnection(), $adLdap->getBaseDn(), $filter, ['objectGUID']);
             $entries = ldap_get_entries($adLdap->getLdapConnection(), $sr);
             if (isset($entries['count']) && $entries['count'] > 0) {

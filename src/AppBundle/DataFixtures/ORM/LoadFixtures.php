@@ -9,6 +9,7 @@
  * file that was distributed with this source code.
  */
 
+// @codingStandardsIgnoreFile
 namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\Category;
