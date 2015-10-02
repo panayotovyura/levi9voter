@@ -115,7 +115,7 @@ class User extends AdUser
         $roles = $this->roles;
 
         // guarantees that a user always has at least one role for security
-        if (count($roles) > 0) {
+        if (count($roles) === 0) {
             $roles[] = 'ROLE_USER';
         }
 
