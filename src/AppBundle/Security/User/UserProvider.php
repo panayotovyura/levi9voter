@@ -4,16 +4,16 @@ namespace AppBundle\Security\User;
 
 use AppBundle\Entity\User;
 use Symfony\Component\Translation\Translator;
-use Ztec\Security\ActiveDirectoryBundle\Security\User\adUser;
-use Ztec\Security\ActiveDirectoryBundle\Security\User\adUserProvider as adUserProvider;
+use Riper\Security\ActiveDirectoryBundle\Security\User\AdUser;
+use Riper\Security\ActiveDirectoryBundle\Security\User\AdUserProvider;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Translation\TranslatorInterface;
-use Ztec\Security\ActiveDirectoryBundle\Service\AdldapService;
+use Riper\Security\ActiveDirectoryBundle\Service\AdldapService;
 use adLDAP\adLDAP;
 use adLDAP\collections\adLDAPUserCollection;
 
-class UserProvider extends adUserProvider
+class UserProvider extends AdUserProvider
 {
     protected $usernamePatterns = array();
     protected $recursiveGrouproles = false;
@@ -37,6 +37,18 @@ class UserProvider extends adUserProvider
         }
     }
 
+    /**
+     * Loads the user for the given username.
+     *
+     * This method must throw UsernameNotFoundException if the user is not
+     * found.
+     *
+     * @param string $username The username
+     * @return AdUser
+     * @see UsernameNotFoundException
+     * @throws UsernameNotFoundException if the user is not found
+     *
+     */
     public function loadUserByUsername($username)
     {
         // The password is set to something impossible to find.
@@ -44,12 +56,12 @@ class UserProvider extends adUserProvider
             $userString = $this->getUsernameFromString($username);
             $user = new User(
                 $this->getUsernameFromString($userString),
-                uniqid(true) . rand(0, 424242),
+                uniqid('_', true) . mt_rand(0, 424242),
                 array()
             );
         } catch (\InvalidArgumentException $e) {
             $msg = $this->translator->trans(
-                'ztec.security.active_directory.invalid_user',
+                'riper.security.active_directory.invalid_user',
                 array('%reason%' => $e->getMessage())
             );
             throw new UsernameNotFoundException($msg);
@@ -58,9 +70,10 @@ class UserProvider extends adUserProvider
         return $user;
     }
 
-
     /**
-     * @param $string
+     * Retrieves the username from the login name, it is transformed using the username patterns.
+     *
+     * @param string $string
      * @return string
      * @throws \InvalidArgumentException
      */
@@ -79,7 +92,7 @@ class UserProvider extends adUserProvider
             return $username;
         } else {
             $msg = $this->translator->trans(
-                'ztec.security.active_directory.username_not_matching_rules',
+                'riper.security.active_directory.username_not_matching_rules',
                 array(
                     '%username%' => $username
                 )
@@ -88,27 +101,34 @@ class UserProvider extends adUserProvider
         }
     }
 
-    public function fetchData(adUser $adUser, TokenInterface $token, adLDAP $adLdap)
+    /**
+     * Fetches the user data via adLDAP and stores it in the provided $user.
+     *
+     * @param AdUser|User $user
+     * @param TokenInterface $token
+     * @param adLDAP $adLdap
+     * @return bool
+     * @throws \Exception
+     */
+    public function fetchData(AdUser $user, TokenInterface $token, adLDAP $adLdap)
     {
         $connected = $adLdap->connect();
-        $isAD      = $adLdap->authenticate($adUser->getUsername(), $token->getCredentials());
+        $isAD      = $adLdap->authenticate($user->getUsername(), $token->getCredentials());
         if (!$isAD || !$connected) {
             $msg = $this->translator->trans(
-                'ztec.security.active_directory.ad.bad_response',
+                'riper.security.active_directory.ad.bad_response',
                 array(
                     '%connection_status%' => var_export($connected, 1),
                     '%is_AD%'             => var_export($isAD, 1),
                 )
             );
-            throw new \Exception(
-                $msg
-            );
+            throw new \Exception($msg);
         }
-        /** @var adLDAPUserCollection $user */
-        $user = $adLdap->user()->infoCollection($adUser->getUsername(), array('*'));
+        /** @var adLDAPUserCollection $userCollection */
+        $userCollection = $adLdap->user()->infoCollection($user->getUsername(), array('*'));
 
-        if ($user) {
-            $groups = $adLdap->user()->groups($adUser->getUsername(), $this->recursiveGrouproles);
+        if ($userCollection) {
+            $groups = $adLdap->user()->groups($user->getUsername(), $this->recursiveGrouproles);
             $sfRoles = array();
             $sfRolesTemp = array();
             foreach ($groups as $r) {
@@ -117,34 +137,51 @@ class UserProvider extends adUserProvider
                     $sfRolesTemp[] = $r;
                 }
             }
-            $adUser->setRoles($sfRoles);
+            $user->setRoles($sfRoles);
             unset($sfRolesTemp);
 
-            $adUser->setDisplayName($user->displayName);
-            $adUser->setUuid($adLdap->utilities()->decodeGuid($user->objectguid));
-            $adUser->setEmail($user->mail);
-            $adUser->setRoles(['ROLE_USER']);
-            $adUser->setPassword($token->getCredentials());
+            $user->setDisplayName($userCollection->displayName);
+            $user->setUuid($adLdap->utilities()->decodeGuid($userCollection->objectguid));
+            $user->setEmail($userCollection->mail);
+            $user->setRoles(['ROLE_USER']);
+            $user->setPassword($token->getCredentials());
             
             return true;
         }
         return false;
     }
 
-    protected function findManagerGUID($adLdap, $dn = '')
+    /**
+     * Finds GUID by DN
+     *
+     * @param adLDAP $adLdap
+     * @param string $dn
+     * @return null
+     */
+    protected function findManagerGUID(adLDAP $adLdap, $dn = '')
     {
         if (!empty($dn)) {
-            $filter = "(&(objectClass=user)(samaccounttype=" . adLDAP::ADLDAP_NORMAL_ACCOUNT .")(objectCategory=person)(distinguishedname=".$dn."))";
-            $sr = ldap_search($adLdap->getLdapConnection(), $adLdap->getBaseDn(), $filter, ["objectGUID"]);
+            $filter = '('
+                . '&(objectClass=user)'
+                . '(samaccounttype=' . adLDAP::ADLDAP_NORMAL_ACCOUNT . ')'
+                . '(objectCategory=person)(distinguishedname=' . $dn . ')'
+                . ')';
+            $sr = ldap_search($adLdap->getLdapConnection(), $adLdap->getBaseDn(), $filter, ['objectGUID']);
             $entries = ldap_get_entries($adLdap->getLdapConnection(), $sr);
-            if (isset($entries["count"]) && $entries["count"] > 0) {
-                return $adLdap->utilities()->decodeGuid($entries[0]["objectguid"][0]);
+            if (isset($entries['count']) && $entries['count'] > 0) {
+                return $adLdap->utilities()->decodeGuid($entries[0]['objectguid'][0]);
             }
         }
 
         return null;
     }
 
+    /**
+     * Converts Windows time to DateTime
+     *
+     * @param $value
+     * @return mixed
+     */
     protected function convertWindowsTimeToDateTime($value)
     {
         return preg_replace(

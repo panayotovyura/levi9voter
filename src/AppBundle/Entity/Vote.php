@@ -48,7 +48,7 @@ class Vote
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -59,6 +59,7 @@ class Vote
      * Set vote
      *
      * @param int $vote
+     * @return $this
      */
     public function setVote($vote)
     {
@@ -69,7 +70,7 @@ class Vote
     /**
      * Get vote
      *
-     * @return integer 
+     * @return integer
      */
     public function getVote()
     {

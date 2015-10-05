@@ -85,7 +85,10 @@ class AddUserCommand extends ContainerAwareCommand
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email')) {
+        if (null !== $input->getArgument('username')
+            && null !== $input->getArgument('password')
+            && null !== $input->getArgument('email')
+        ) {
             return;
         }
 
@@ -177,7 +180,9 @@ class AddUserCommand extends ContainerAwareCommand
         $existingUser = $this->em->getRepository('AppBundle:User')->findOneBy(array('username' => $username));
 
         if (null !== $existingUser) {
-            throw new \RuntimeException(sprintf('There is already a user registered with the "%s" username.', $username));
+            throw new \RuntimeException(
+                sprintf('There is already a user registered with the "%s" username.', $username)
+            );
         }
 
         // create the user and encode its password
@@ -195,13 +200,26 @@ class AddUserCommand extends ContainerAwareCommand
         $this->em->flush($user);
 
         $output->writeln('');
-        $output->writeln(sprintf('[OK] %s was successfully created: %s (%s)', $isAdmin ? 'Administrator user' : 'User', $user->getUsername(), $user->getEmail()));
+        $output->writeln(
+            sprintf(
+                '[OK] %s was successfully created: %s (%s)',
+                $isAdmin ? 'Administrator user' : 'User',
+                $user->getUsername(),
+                $user->getEmail()
+            )
+        );
 
         if ($output->isVerbose()) {
             $finishTime = microtime(true);
             $elapsedTime = $finishTime - $startTime;
 
-            $output->writeln(sprintf('[INFO] New user database id: %d / Elapsed time: %.2f ms', $user->getId(), $elapsedTime*1000));
+            $output->writeln(
+                sprintf(
+                    '[INFO] New user database id: %d / Elapsed time: %.2f ms',
+                    $user->getId(),
+                    $elapsedTime * 1000
+                )
+            );
         }
     }
 
