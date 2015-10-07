@@ -145,4 +145,12 @@ class User extends AdUser
         // if you had a plainPassword property, you'd nullify it here
         // $this->plainPassword = null;
     }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return in_array('ROLE_ADMIN', $this->getRoles());
+    }
 }

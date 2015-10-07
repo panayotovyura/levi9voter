@@ -28,9 +28,10 @@ class Post
     const NUM_ITEMS = 10;
 
     const STATUS_DRAFT = 0;
-    const STATUS_VOTING = 1;
-    const STATUS_APPROVED = 2;
-    const STATUS_REJECTED = 3;
+    const STATUS_REVIEW = 1;
+    const STATUS_VOTING = 2;
+    const STATUS_APPROVED = 3;
+    const STATUS_REJECTED = 4;
 
     const VOTING_MOST_RATED = 0;
     const VOTING_MOST_POPULAR = 1;
