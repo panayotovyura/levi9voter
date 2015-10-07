@@ -110,6 +110,9 @@
         <div class="container body-container">
             {% block body %}
                 <div class="row">
+                    {{ include(':partial:flashes.html.twig') }}
+                </div>
+                <div class="row">
                     <div id="main" class="col-sm-9">
                         {% block main %}{% endblock %}
                     </div>
