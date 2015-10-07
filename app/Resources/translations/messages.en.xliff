@@ -275,6 +275,14 @@
                 <source>help.more_information</source>
                 <target><![CDATA[For more information, check out the <a href="http://symfony.com/doc">Symfony doc</a>.]]></target>
             </trans-unit>
+            <trans-unit id="flash.vote.agree">
+                <source>flash.vote.agree</source>
+                <target>You voted for this proposal!</target>
+            </trans-unit>
+            <trans-unit id="flash.vote.not-agree">
+                <source>flash.vote.not-agree</source>
+                <target>You voted against this proposal!</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

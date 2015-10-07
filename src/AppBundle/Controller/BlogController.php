@@ -12,6 +12,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
+use AppBundle\Enum\FlashbagTypeEnum;
 use AppBundle\Entity\Post;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\StateType;
@@ -244,6 +245,9 @@ class BlogController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($voteEntity);
         $em->flush();
+
+        $flashMessage = $agree == Vote::LIKE ? 'flash.vote.agree' : 'flash.vote.not-agree';
+        $this->addFlash(FlashbagTypeEnum::SUCCESS, $this->get('translator')->trans($flashMessage));
 
         return $this->redirectToRoute('blog_post', array('slug' => $post->getSlug()));
     }
