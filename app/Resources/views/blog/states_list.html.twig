@@ -10,7 +10,7 @@
                         Show all
                     </a>
                 </li>
-                {% for state in range(0, 3) %}
+                {% for state in range(2, 4) %}
                     <li>
                         <a href="{{ path('blog_by_state', {'state': state}) }}">
                             {{ ('post.state.'~state)|trans }}

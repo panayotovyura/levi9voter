@@ -205,14 +205,18 @@
             </trans-unit>
             <trans-unit id="post.state.1">
                 <source>post.state.1</source>
-                <target>Voting in progress</target>
+                <target>Review</target>
             </trans-unit>
             <trans-unit id="post.state.2">
                 <source>post.state.2</source>
-                <target>Approved</target>
+                <target>Voting in progress</target>
             </trans-unit>
             <trans-unit id="post.state.3">
                 <source>post.state.3</source>
+                <target>Approved</target>
+            </trans-unit>
+            <trans-unit id="post.state.4">
+                <source>post.state.4</source>
                 <target>Rejected</target>
             </trans-unit>
             <trans-unit id="post.voting.0">

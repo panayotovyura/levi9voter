@@ -15,6 +15,7 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Form\CommentType;
 use AppBundle\Form\StateType;
+use AppBundle\Security\Authorization\Voter\PostVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -107,6 +108,8 @@ class BlogController extends Controller
      */
     public function postShowAction(Post $post)
     {
+        $this->denyAccessUnlessGranted(PostVoter::VIEW, $post);
+
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('AppBundle:Category')->findAll();
 
@@ -179,6 +182,8 @@ class BlogController extends Controller
      */
     public function changeStateAction(Request $request, Post $post)
     {
+        $this->denyAccessUnlessGranted(PostVoter::EDIT, $post);
+
         $form = $this->createStateForm();
 
         $form->handleRequest($request);
@@ -217,6 +222,8 @@ class BlogController extends Controller
      */
     public function voteAction(Post $post, $agree)
     {
+        $this->denyAccessUnlessGranted(PostVoter::VIEW, $post);
+
         $userEmail = $this->getUser()->getEmail();
 
         $voteEntity = $this->getDoctrine()

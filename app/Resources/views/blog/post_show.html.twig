@@ -3,7 +3,6 @@
 {% block body_id 'blog_post_show' %}
 
 {% block main %}
-    {% set state_classes = {0: 'default', 1: 'info', 2: 'success', 3: 'danger'} %}
     <h1>
         {{ post.title }}
         <span class="label label-{{ state_classes[post.state] }}">{{ ('post.state.'~post.state)|trans }}</span>
@@ -11,7 +10,7 @@
 
     {{ post.content|md2html }}
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') and post.state == constant('AppBundle\\Entity\\Post::STATUS_VOTING') %}
+    {% if is_granted('vote', post) %}
     <div id="post-add-comment" class="well">
         <a class="btn btn-success" href="{{ path('blog_post_vote', { id: post.id, agree: 1 }) }}">
             <i class="fa fa-thumbs-up"></i> ({{ post.agreeCount }})
@@ -64,7 +63,7 @@
 
 {% block sidebar %}
 
-    {% if app.user and post.isAuthor(app.user) and post.state == constant('AppBundle\\Entity\\Post::STATUS_DRAFT') %}
+    {% if is_granted('edit', post) %}
         <div class="section">
             <a class="btn btn-lg btn-block btn-success" href="{{ path('admin_post_edit', { id: post.id }) }}">
                 <i class="fa fa-edit"></i> {{ 'action.edit_post'|trans }}
