@@ -64,12 +64,6 @@
                             <ul class="nav navbar-nav navbar-right">
 
                                 {% block header_navigation_links %}
-                                    <li>
-                                        <a href="{{ path('blog_index') }}">
-                                            <i class="fa fa-home"></i> {{ 'menu.homepage'|trans }}
-                                        </a>
-                                    </li>
-
                                     {# The 'app.user' condition is required to avoid issues in 404 and 500 error pages
                                        As routing is done before security, error pages are not covered by any firewall.
                                        This means you can't use is_granted() directly on these pages.
@@ -88,6 +82,12 @@
                                     <li>
                                         <a href="{{ path('security_logout') }}">
                                             <i class="fa fa-sign-out"></i> {{ 'menu.logout'|trans }}
+                                        </a>
+                                    </li>
+                                {% else  %}
+                                    <li>
+                                        <a href="{{ path('security_login_form') }}">
+                                            <i class="fa fa-home"></i> {{ 'menu.login'|trans }}
                                         </a>
                                     </li>
                                 {% endif %}

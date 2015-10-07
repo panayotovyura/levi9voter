@@ -20,6 +20,5 @@ app:
 homepage:
     path: /{_locale}
     defaults:
-        _controller: FrameworkBundle:Template:template
-        template:    'default/homepage.html.twig'
+        _controller: AppBundle:Blog:index
         _locale:     "%locale%"

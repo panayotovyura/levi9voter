@@ -32,6 +32,7 @@ class PostRepository extends EntityRepository
             ->select('p')
             ->where('p.publishedAt <= :now')->setParameter('now', new \DateTime())
             ->andWhere('p.state != :draft')->setParameter('draft', Post::STATUS_DRAFT)
+            ->andWhere('p.state != :review')->setParameter('review', Post::STATUS_REVIEW)
             ->orderBy('p.publishedAt', 'DESC')
             ->setMaxResults($limit);
 
