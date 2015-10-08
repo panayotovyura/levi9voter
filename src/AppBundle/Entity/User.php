@@ -170,7 +170,7 @@ class User extends AdUser
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getDisplayName()
     {
