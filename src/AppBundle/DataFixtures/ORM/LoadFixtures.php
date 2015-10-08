@@ -49,7 +49,8 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         $passwordEncoder = $this->container->get('security.password_encoder');
 
         $johnUser = new User();
-        $johnUser->setUsername('Denis Kiprushev');
+        $johnUser->setUsername('dkiprushev');
+        $johnUser->setDisplayName('Denis Kiprushev');
         $johnUser->setEmail('d.kiprushev@levi9.com');
         $encodedPassword = $passwordEncoder->encodePassword($johnUser, 'kitten');
         $johnUser->setPassword($encodedPassword);
@@ -58,6 +59,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
 
         $annaAdmin = new User();
         $annaAdmin->setUsername('Alex Martynenko');
+        $annaAdmin->setDisplayName('Alex Martynenko');
         $annaAdmin->setEmail('a.martynenko@levi9.com');
         $annaAdmin->setRoles(array('ROLE_ADMIN'));
         $encodedPassword = $passwordEncoder->encodePassword($annaAdmin, 'kitten');
@@ -73,6 +75,19 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         $category = new Category();
         $category->setName('Improvements');
 
+        $passwordEncoder = $this->container->get('security.password_encoder');
+
+        $user = new User();
+        $user->setUsername('vvasia');
+        $user->setDisplayName('Vasia Vasin');
+        $user->setEmail('v.vasin@levi9.com');
+        $user->setUuid('uuid');
+        $encodedPassword = $passwordEncoder->encodePassword($user, 'password');
+        $user->setPassword($encodedPassword);
+        $user->setRoles(['ROLE_USER']);
+        $manager->persist($user);
+        $manager->flush();
+
         foreach (range(1, 5) as $i) {
             $post = new Post();
 
@@ -87,8 +102,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
 
             foreach (range(1, 5) as $j) {
                 $comment = new Comment();
-                $comment->setAuthorDisplayName('Denis Kiprushev')
-                    ->setAuthorEmail('d.kiprushev@levi9.com')
+                $comment->setUser($user)
                     ->setPublishedAt(new \DateTime('now + '.($i + $j).'seconds'))
                     ->setContent($this->getRandomCommentContent())
                     ->setPost($post);

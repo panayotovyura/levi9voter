@@ -134,10 +134,15 @@ class BlogController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // todo: we need to have user from database in session
+            $user = $this->getDoctrine()
+                ->getRepository('AppBundle:User')
+                ->findOneByEmail($this->getUser()->getEmail());
+
             /** @var Comment $comment */
             $comment = $form->getData();
-            $comment->setAuthorDisplayName($this->getUser()->getDisplayName())
-                ->setAuthorEmail($this->getUser()->getEmail())
+            $comment->setUser($user)
                 ->setPost($post)
                 ->setPublishedAt(new \DateTime());
 

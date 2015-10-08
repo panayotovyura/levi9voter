@@ -54,15 +54,10 @@ class Comment
     private $content;
 
     /**
-     * @ORM\Column(type="string")
-     */
-    private $authorDisplayName;
-
-    /**
-     * @ORM\Column(type="string")
-     * @Assert\Email()
-     */
-    private $authorEmail;
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     **/
+    private $user;
 
     /**
      * @ORM\Column(type="datetime")
@@ -113,25 +108,6 @@ class Comment
     }
 
     /**
-     * @return mixed
-     */
-    public function getAuthorEmail()
-    {
-        return $this->authorEmail;
-    }
-
-    /**
-     * @param $authorEmail
-     * @return $this
-     */
-    public function setAuthorEmail($authorEmail)
-    {
-        $this->authorEmail = $authorEmail;
-
-        return $this;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getPublishedAt()
@@ -172,18 +148,18 @@ class Comment
     /**
      * @return mixed
      */
-    public function getAuthorDisplayName()
+    public function getUser()
     {
-        return $this->authorDisplayName;
+        return $this->user;
     }
 
     /**
-     * @param $authorDisplayName
+     * @param User $user
      * @return $this
      */
-    public function setAuthorDisplayName($authorDisplayName)
+    public function setUser(User $user)
     {
-        $this->authorDisplayName = $authorDisplayName;
+        $this->user = $user;
 
         return $this;
     }

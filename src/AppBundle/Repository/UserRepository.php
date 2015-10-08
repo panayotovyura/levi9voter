@@ -38,13 +38,14 @@ class UserRepository extends EntityRepository
         $this->getEntityManager()
             ->getConnection()
             ->executeQuery(
-                'INSERT OR IGNORE INTO user(username, email, uuid, password, roles)
-                    VALUES(:username, :email, :uuid, :password, :roles)',
+                'INSERT OR IGNORE INTO user(username, email, uuid, password, displayName, roles)
+                    VALUES(:username, :email, :uuid, :password, :displayName, :roles)',
                 [
-                    'username' => $user->getDisplayName(),
+                    'username' => $user->getUsername(),
                     'email' => $user->getEmail(),
                     'uuid' => $user->getUuid(),
                     'password' => md5(microtime()),
+                    'displayName' => $user->getDisplayName(),
                     'roles' => ''
                 ]
             );

@@ -47,6 +47,21 @@ class User extends AdUser
     private $password;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $displayName;
+
+    /**
+     * @ORM\OneToMany(
+     *      targetEntity="Comment",
+     *      mappedBy="user",
+     *      orphanRemoval=true
+     * )
+     * @ORM\OrderBy({"publishedAt" = "DESC"})
+     */
+    private $comments;
+
+    /**
      * @ORM\Column(type="json_array")
      */
     private $roles = array();
@@ -152,5 +167,24 @@ class User extends AdUser
     public function isAdmin()
     {
         return in_array('ROLE_ADMIN', $this->getRoles());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDisplayName()
+    {
+        return $this->displayName;
+    }
+
+    /**
+     * @param string $displayName
+     * @return $this
+     */
+    public function setDisplayName($displayName)
+    {
+        $this->displayName = $displayName;
+
+        return $this;
     }
 }
