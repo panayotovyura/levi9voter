@@ -146,7 +146,7 @@ class Comment
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getUser()
     {
