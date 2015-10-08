@@ -136,9 +136,10 @@ class BlogController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var Comment $comment */
             $comment = $form->getData();
-            $comment->setAuthorEmail($this->getUser()->getEmail());
-            $comment->setPost($post);
-            $comment->setPublishedAt(new \DateTime());
+            $comment->setAuthorDisplayName($this->getUser()->getDisplayName())
+                ->setAuthorEmail($this->getUser()->getEmail())
+                ->setPost($post)
+                ->setPublishedAt(new \DateTime());
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($comment);

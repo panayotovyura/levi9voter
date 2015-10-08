@@ -87,11 +87,11 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
 
             foreach (range(1, 5) as $j) {
                 $comment = new Comment();
-
-                $comment->setAuthorEmail('d.kiprushev@levi9.com');
-                $comment->setPublishedAt(new \DateTime('now + '.($i + $j).'seconds'));
-                $comment->setContent($this->getRandomCommentContent());
-                $comment->setPost($post);
+                $comment->setAuthorDisplayName('Denis Kiprushev')
+                    ->setAuthorEmail('d.kiprushev@levi9.com')
+                    ->setPublishedAt(new \DateTime('now + '.($i + $j).'seconds'))
+                    ->setContent($this->getRandomCommentContent())
+                    ->setPost($post);
 
                 $manager->persist($comment);
                 $post->addComment($comment);
