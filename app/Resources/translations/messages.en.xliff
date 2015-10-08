@@ -186,6 +186,14 @@
                 <source>menu.logout</source>
                 <target>Logout</target>
             </trans-unit>
+            <trans-unit id="menu.add_vote">
+                <source>menu.add_vote</source>
+                <target>Add vote</target>
+            </trans-unit>
+            <trans-unit id="menu.vote_list">
+                <source>menu.vote_list</source>
+                <target>View votes</target>
+            </trans-unit>
 
             <trans-unit id="post.to_publish_a_comment">
                 <source>post.to_publish_a_comment</source>
