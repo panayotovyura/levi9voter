@@ -32,6 +32,7 @@ class PostRepository extends EntityRepository
             ->select('p')
             ->where('p.publishedAt <= :now')->setParameter('now', new \DateTime())
             ->andWhere('p.state != :draft')->setParameter('draft', Post::STATUS_DRAFT)
+            ->andWhere('p.state != :review')->setParameter('review', Post::STATUS_REVIEW)
             ->orderBy('p.publishedAt', 'DESC')
             ->setMaxResults($limit);
 
@@ -78,6 +79,7 @@ class PostRepository extends EntityRepository
             ->addSelect('SUM(v.vote) as votesRate')
             ->leftJoin('AppBundle:Vote', 'v', Join::WITH, 'v.post = p.id')
             ->where('p.state != :draft')->setParameter('draft', Post::STATUS_DRAFT)
+            ->andWhere('p.state != :review')->setParameter('review', Post::STATUS_REVIEW)
             ->orderBy('votesRate', 'DESC')
             ->groupBy('p.id')
             ->setMaxResults($limit);
@@ -95,6 +97,7 @@ class PostRepository extends EntityRepository
             ->addSelect('COUNT(v.vote) as votesCount')
             ->leftJoin('AppBundle:Vote', 'v', Join::WITH, 'v.post = p.id')
             ->where('p.state != :draft')->setParameter('draft', Post::STATUS_DRAFT)
+            ->andWhere('p.state != :review')->setParameter('review', Post::STATUS_REVIEW)
             ->orderBy('votesCount', 'DESC')
             ->groupBy('p.id')
             ->setMaxResults($limit);

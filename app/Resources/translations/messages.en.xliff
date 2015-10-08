@@ -39,6 +39,10 @@
                 <source>title.login</source>
                 <target>Secure Sign in</target>
             </trans-unit>
+            <trans-unit id="menu.login">
+                <source>menu.login</source>
+                <target>Log in</target>
+            </trans-unit>
             <trans-unit id="title.post_list">
                 <source>title.post_list</source>
                 <target>Vote List</target>
