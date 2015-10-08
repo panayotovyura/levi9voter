@@ -153,4 +153,12 @@ class User extends AdUser
     {
         return in_array('ROLE_ADMIN', $this->getRoles());
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getDisplayName();
+    }
 }
