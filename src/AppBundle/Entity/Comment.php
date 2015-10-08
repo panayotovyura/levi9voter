@@ -55,6 +55,11 @@ class Comment
 
     /**
      * @ORM\Column(type="string")
+     */
+    private $authorDisplayName;
+
+    /**
+     * @ORM\Column(type="string")
      * @Assert\Email()
      */
     private $authorEmail;
@@ -80,44 +85,106 @@ class Comment
         return !$containsInvalidCharacters;
     }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return mixed
+     */
     public function getContent()
     {
         return $this->content;
     }
+
+    /**
+     * @param $content
+     * @return $this
+     */
     public function setContent($content)
     {
         $this->content = $content;
+
+        return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getAuthorEmail()
     {
         return $this->authorEmail;
     }
+
+    /**
+     * @param $authorEmail
+     * @return $this
+     */
     public function setAuthorEmail($authorEmail)
     {
         $this->authorEmail = $authorEmail;
+
+        return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getPublishedAt()
     {
         return $this->publishedAt;
     }
+
+    /**
+     * @param $publishedAt
+     * @return $this
+     */
     public function setPublishedAt($publishedAt)
     {
         $this->publishedAt = $publishedAt;
+
+        return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getPost()
     {
         return $this->post;
     }
+
+    /**
+     * @param Post|null $post
+     * @return $this
+     */
     public function setPost(Post $post = null)
     {
         $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAuthorDisplayName()
+    {
+        return $this->authorDisplayName;
+    }
+
+    /**
+     * @param $authorDisplayName
+     * @return $this
+     */
+    public function setAuthorDisplayName($authorDisplayName)
+    {
+        $this->authorDisplayName = $authorDisplayName;
+
+        return $this;
     }
 }
