@@ -187,4 +187,12 @@ class User extends AdUser
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getDisplayName();
+    }
 }
